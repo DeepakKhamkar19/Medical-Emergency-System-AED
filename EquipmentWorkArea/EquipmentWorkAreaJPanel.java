@@ -5,14 +5,14 @@
  */
 package userinterface.EquipmentWorkArea;
 
-import Business.EcoSystem;
-import Business.Employee.Employee;
-import Business.Enterprise.Enterprise;
-import Business.Equipment.Equipment;
-import Business.Equipment.EquipmentList;
-import Business.Network.Network;
-import Business.Organization.Organization;
-import Business.UserAccount.UserAccount;
+import Project.EcoSystem;
+import Project.Employee.Employee;
+import Project.Venture.Venture;
+import Project.Equipment.EquipmentService;
+import Project.Equipment.EquipmentList;
+import Project.Network.NetworkService;
+import Project.Organization.OrganizationService;
+import Project.UserAccount.UserAccountService;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -20,7 +20,7 @@ import userinterface.EmergencyUnitAdminArea.EmergencyUnitManageEmployeeJPanel;
 
 /**
  *
- * @author singh
+ * @author Raveena
  */
 public class EquipmentWorkAreaJPanel extends javax.swing.JPanel {
 
@@ -28,14 +28,14 @@ public class EquipmentWorkAreaJPanel extends javax.swing.JPanel {
      * Creates new form EquipmentWorkAreaJPanel
      */
     JPanel userProcessContainer;
-    Enterprise enterprise;
+    Venture enterprise;
     EcoSystem ecosystem;
     EquipmentList equipmentList;
-    Network network;
-    UserAccount userAccount;
-    Organization organization;
-    public EquipmentWorkAreaJPanel(JPanel userProcessContainer, UserAccount userAccount,Network network, Enterprise enterprise,
-            Organization organization,EcoSystem ecosystem) {
+    NetworkService network;
+    UserAccountService userAccount;
+    OrganizationService organization;
+    public EquipmentWorkAreaJPanel(JPanel userProcessContainer, UserAccountService userAccount,NetworkService network, Venture enterprise,
+            OrganizationService organization,EcoSystem ecosystem) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
@@ -49,18 +49,18 @@ public class EquipmentWorkAreaJPanel extends javax.swing.JPanel {
     
     public void populateTable()
     {
-         DefaultTableModel model = (DefaultTableModel) tblEquipList.getModel();
+         DefaultTableModel model = (DefaultTableModel) jtblEquipList.getModel();
 
         model.setRowCount(0);
 
-        for (Equipment equipment : ecosystem.getEquipmentList().getEquipmentList()) {
+        for (EquipmentService equipment : ecosystem.getEquipmentList().getEquipmentList()) {
             Object[] row = new Object[5];
-            double cost = equipment.getCost();
-            int qunt = Integer.parseInt(equipment.getAvailableQuant());
-            row[0] = equipment.getEquipmentID();
-            row[1] = equipment.getEquipmetName();
-            row[2] = equipment.getAvailableQuant();
-            row[3] = equipment.getCost();
+            double cost = equipment.getPrice();
+            int qunt = Integer.parseInt(equipment.getAvailableeQuant());
+            row[0] = equipment.getEquiID();
+            row[1] = equipment.getEquiName();
+            row[2] = equipment.getAvailableeQuant();
+            row[3] = equipment.getPrice();
             row[4] = cost * qunt ;
             model.addRow(row);
         }
@@ -76,22 +76,22 @@ public class EquipmentWorkAreaJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jLabel1 = new javax.swing.JLabel();
+        jkLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblEquipList = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        jtblEquipList = new javax.swing.JTable();
+        jkButton1 = new javax.swing.JButton();
+        jkButton2 = new javax.swing.JButton();
+        jkLabel3 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("EQUIPMENT ADMIN PAGE");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 19, -1, 40));
+        jkLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
+        jkLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jkLabel1.setText("EQUIPMENT ADMIN PAGE");
+        add(jkLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 19, -1, 40));
 
-        tblEquipList.setModel(new javax.swing.table.DefaultTableModel(
+        jtblEquipList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -102,54 +102,54 @@ public class EquipmentWorkAreaJPanel extends javax.swing.JPanel {
                 "Equipment ID", "Equipment Name", "Available Quantity", "Equipment Cost", "Total Cost"
             }
         ));
-        jScrollPane1.setViewportView(tblEquipList);
+        jScrollPane1.setViewportView(jtblEquipList);
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(91, 89, 668, 183));
 
-        jButton1.setText("Add New Equipment");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jkButton1.setText("Add New Equipment");
+        jkButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jkButton1ActionPerformed(evt);
             }
         });
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(133, 322, 220, -1));
+        add(jkButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(133, 322, 220, -1));
 
-        jButton2.setText("Request for Equipment");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jkButton2.setText("Request for Equipment");
+        jkButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jkButton2ActionPerformed(evt);
             }
         });
-        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(481, 322, 220, -1));
+        add(jkButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(481, 322, 220, -1));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/equipmentworkarea.png"))); // NOI18N
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 570));
+        jkLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/equipmentworkarea.png"))); // NOI18N
+        add(jkLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 570));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jkButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jkButton1ActionPerformed
         // TODO add your handling code here:
          AddEquipmentJPanel mujp = new AddEquipmentJPanel(userProcessContainer, enterprise, ecosystem);
         userProcessContainer.add("AddEquipmentJPanel",mujp);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jkButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jkButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jkButton2ActionPerformed
         // TODO add your handling code here:
          EquipmentRequestJPanel mujp = new EquipmentRequestJPanel(userProcessContainer,network, enterprise,organization , userAccount,ecosystem);
         userProcessContainer.add("AddEquipmentJPanel",mujp);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jkButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblEquipList;
+    private javax.swing.JButton jkButton1;
+    private javax.swing.JButton jkButton2;
+    private javax.swing.JLabel jkLabel1;
+    private javax.swing.JLabel jkLabel3;
+    private javax.swing.JTable jtblEquipList;
     // End of variables declaration//GEN-END:variables
 }

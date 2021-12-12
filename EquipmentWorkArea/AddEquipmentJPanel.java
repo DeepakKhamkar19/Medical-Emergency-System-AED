@@ -5,9 +5,9 @@
  */
 package userinterface.EquipmentWorkArea;
 
-import Business.EcoSystem;
-import Business.Enterprise.Enterprise;
-import Business.Equipment.EquipmentList;
+import Project.EcoSystem;
+import Project.Venture.Venture;
+import Project.Equipment.EquipmentList;
 import java.awt.CardLayout;
 import java.awt.Component;
 import javax.swing.JOptionPane;
@@ -16,7 +16,7 @@ import userinterface.SystemAdminWorkArea.SystemAdminWorkAreaJPanel;
 
 /**
  *
- * @author Sandeep
+ * @author Raveena
  */
 public class AddEquipmentJPanel extends javax.swing.JPanel {
 
@@ -24,9 +24,9 @@ public class AddEquipmentJPanel extends javax.swing.JPanel {
      * Creates new form AddEquipmentJPanel
      */
     JPanel userProcessContainer;
-    Enterprise enterprise;
+    Venture enterprise;
     EcoSystem ecosystem;
-    public AddEquipmentJPanel(JPanel userProcessContainer, Enterprise enterprise, EcoSystem ecosystem) {
+    public AddEquipmentJPanel(JPanel userProcessContainer, Venture enterprise, EcoSystem ecosystem) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.ecosystem = ecosystem;
@@ -42,79 +42,79 @@ public class AddEquipmentJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        txtName = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        txtDesc = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        txtCost = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        txtAvailQuant = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        txtTotalCost = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        btnBack = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
+        jkLabel1 = new javax.swing.JLabel();
+        jkLabel2 = new javax.swing.JLabel();
+        jtxtName = new javax.swing.JTextField();
+        jkLabel3 = new javax.swing.JLabel();
+        jtxtDesc = new javax.swing.JTextField();
+        jkLabel4 = new javax.swing.JLabel();
+        jtxtCost = new javax.swing.JTextField();
+        jkLabel5 = new javax.swing.JLabel();
+        jtxtAvailQuant = new javax.swing.JTextField();
+        jkLabel6 = new javax.swing.JLabel();
+        jtxtTotalCost = new javax.swing.JTextField();
+        jkButton1 = new javax.swing.JButton();
+        jbtnBack = new javax.swing.JButton();
+        jkLabel7 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("ADD NEW EQUIPMENT");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 282, 33));
+        jkLabel1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jkLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jkLabel1.setText("ADD NEW EQUIPMENT");
+        add(jkLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 282, 33));
 
-        jLabel2.setText("Equipment Name :");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 88, -1, -1));
-        add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 83, 200, -1));
+        jkLabel2.setText("Equipment Name :");
+        add(jkLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 88, -1, -1));
+        add(jtxtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 83, 200, -1));
 
-        jLabel3.setText("Equipment Description :");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 144, -1, -1));
-        add(txtDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 139, 200, -1));
+        jkLabel3.setText("Equipment Description :");
+        add(jkLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 144, -1, -1));
+        add(jtxtDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 139, 200, -1));
 
-        jLabel4.setText("Equipment Cost :");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 200, -1, -1));
-        add(txtCost, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 195, 200, -1));
+        jkLabel4.setText("Equipment Cost :");
+        add(jkLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 200, -1, -1));
+        add(jtxtCost, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 195, 200, -1));
 
-        jLabel5.setText("Quantity :");
-        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(178, 251, -1, -1));
-        add(txtAvailQuant, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 251, 200, -1));
+        jkLabel5.setText("Quantity :");
+        add(jkLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(178, 251, -1, -1));
+        add(jtxtAvailQuant, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 251, 200, -1));
 
-        jLabel6.setText("Total Cost :");
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(167, 312, -1, -1));
+        jkLabel6.setText("Total Cost :");
+        add(jkLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(167, 312, -1, -1));
 
-        txtTotalCost.setEditable(false);
-        add(txtTotalCost, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 307, 200, -1));
+        jtxtTotalCost.setEditable(false);
+        add(jtxtTotalCost, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 307, 200, -1));
 
-        jButton1.setText("ADD");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jkButton1.setText("ADD");
+        jkButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jkButton1ActionPerformed(evt);
             }
         });
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 363, 145, -1));
+        add(jkButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 363, 145, -1));
 
-        btnBack.setText("<<Back");
-        btnBack.addActionListener(new java.awt.event.ActionListener() {
+        jbtnBack.setText("<<Back");
+        jbtnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBackActionPerformed(evt);
+                jbtnBackActionPerformed(evt);
             }
         });
-        add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 363, 103, -1));
+        add(jbtnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 363, 103, -1));
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/equipment.jpg"))); // NOI18N
-        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
+        jkLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/equipment.jpg"))); // NOI18N
+        add(jkLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jkButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jkButton1ActionPerformed
         // TODO add your handling code here:
        
         EquipmentList enterpriseList = ecosystem.getEquipmentList();
-        String equipmentName = txtName.getText();
-        String equipDesc = txtDesc.getText();
-        String equipAvail = txtAvailQuant.getText();
-        String equipmentCost = txtCost.getText();
+        String equipmentName = jtxtName.getText();
+        String equipDesc = jtxtDesc.getText();
+        String equipAvail = jtxtAvailQuant.getText();
+        String equipmentCost = jtxtCost.getText();
         if(equipmentName.isEmpty() || equipDesc.isEmpty() || equipAvail.isEmpty() ||  equipmentCost.isEmpty() )
         {
              JOptionPane.showMessageDialog(null,"Please fill all Fields");
@@ -122,14 +122,14 @@ public class AddEquipmentJPanel extends javax.swing.JPanel {
         }
         
         double Totalcost = Integer.parseInt(equipAvail) * Double.parseDouble(equipmentCost);
-        txtTotalCost.setText(String.valueOf(Totalcost));
+        jtxtTotalCost.setText(String.valueOf(Totalcost));
         enterpriseList.addNewEquip(equipmentName, equipDesc, equipAvail, Double.parseDouble(equipmentCost),Totalcost);
         JOptionPane.showMessageDialog(null,"Equipment Added Successfully");
                 
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jkButton1ActionPerformed
 
-    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+    private void jbtnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBackActionPerformed
         // TODO add your handling code here:
            userProcessContainer.remove(this);
         Component[] componentArray = userProcessContainer.getComponents();
@@ -138,23 +138,23 @@ public class AddEquipmentJPanel extends javax.swing.JPanel {
         sysAdminwjp.populateTable();
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
-    }//GEN-LAST:event_btnBackActionPerformed
+    }//GEN-LAST:event_jbtnBackActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBack;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JTextField txtAvailQuant;
-    private javax.swing.JTextField txtCost;
-    private javax.swing.JTextField txtDesc;
-    private javax.swing.JTextField txtName;
-    private javax.swing.JTextField txtTotalCost;
+    private javax.swing.JButton jbtnBack;
+    private javax.swing.JButton jkButton1;
+    private javax.swing.JLabel jkLabel1;
+    private javax.swing.JLabel jkLabel2;
+    private javax.swing.JLabel jkLabel3;
+    private javax.swing.JLabel jkLabel4;
+    private javax.swing.JLabel jkLabel5;
+    private javax.swing.JLabel jkLabel6;
+    private javax.swing.JLabel jkLabel7;
+    private javax.swing.JTextField jtxtAvailQuant;
+    private javax.swing.JTextField jtxtCost;
+    private javax.swing.JTextField jtxtDesc;
+    private javax.swing.JTextField jtxtName;
+    private javax.swing.JTextField jtxtTotalCost;
     // End of variables declaration//GEN-END:variables
 }

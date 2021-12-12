@@ -5,19 +5,19 @@
  */
 package userinterface.EquipmentWorkArea;
 
-import Business.EcoSystem;
-import Business.Enterprise.Enterprise;
-import Business.Equipment.Equipment;
-import Business.Network.Network;
-import Business.Organization.BillingOrganization;
-import Business.Organization.EmergencyOrganization;
-import Business.Organization.EquipmentOrganization;
-import Business.Organization.Organization;
-import Business.Organization.PatientOrganization;
-import Business.UserAccount.UserAccount;
-import Business.WorkQueue.BillingWorkRequest;
-import Business.WorkQueue.EmergencyPatientRequest;
-import Business.WorkQueue.WorkRequest;
+import Project.EcoSystem;
+import Project.Venture.Venture;
+import Project.Equipment.EquipmentService;
+import Project.Network.NetworkService;
+import Project.Organization.BillingOrganizationService;
+import Project.Organization.EmergencyOrganizationService;
+import Project.Organization.EquipmentOrganizationService;
+import Project.Organization.OrganizationService;
+import Project.Organization.PatientOrganizationService;
+import Project.UserAccount.UserAccountService;
+import Project.WorkQueue.BillingWorkRequestService;
+import Project.WorkQueue.EmergencyPatientRequestService;
+import Project.WorkQueue.WorkRequestService;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.Date;
@@ -26,7 +26,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Sandeep
+ * @author Raveena
  */
 public class EquipmentRequestJPanel extends javax.swing.JPanel {
 
@@ -34,13 +34,13 @@ public class EquipmentRequestJPanel extends javax.swing.JPanel {
      * Creates new form EquipmentRequestJPanel
      */
      JPanel userProcessContainer;
-    Enterprise enterprise;
+    Venture enterprise;
     EcoSystem ecosystem;
-    Network network;
-    UserAccount userAccount;
-    Organization organization;
-    public EquipmentRequestJPanel(JPanel userProcessContainer, Network network,Enterprise enterprise,Organization organization
-            ,UserAccount userAccount, EcoSystem ecosystem) {
+    NetworkService network;
+    UserAccountService userAccount;
+    OrganizationService organization;
+    public EquipmentRequestJPanel(JPanel userProcessContainer, NetworkService network,Venture enterprise,OrganizationService organization
+            ,UserAccountService userAccount, EcoSystem ecosystem) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.ecosystem = ecosystem;
@@ -55,16 +55,16 @@ public class EquipmentRequestJPanel extends javax.swing.JPanel {
 
     public void populateRequestTable()
     {
-        DefaultTableModel model = (DefaultTableModel) tblEquipReq.getModel();
+        DefaultTableModel model = (DefaultTableModel) jtblEquipReq.getModel();
 
         model.setRowCount(0);
-         Organization Billingorg = null;
-       for(Network network : ecosystem.getNetworkList())
+         OrganizationService Billingorg = null;
+       for(NetworkService network : ecosystem.getNetworkList())
        {
-            for(Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList())  
+            for(Venture enterprise : network.getVentureDirectory().getVentureList())  
             {
-              for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
-                  if(organization instanceof BillingOrganization)
+              for (OrganizationService organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                  if(organization instanceof BillingOrganizationService)
                   {
                          Billingorg = organization;
                          break;
@@ -73,23 +73,23 @@ public class EquipmentRequestJPanel extends javax.swing.JPanel {
             }
        }
        
-       for(WorkRequest wr : Billingorg.getWorkQueue().getWorkRequestList())
+       for(WorkRequestService wr : Billingorg.getWorkkQueue().getWorkRequestList())
        {
-           if(wr instanceof BillingWorkRequest )
+           if(wr instanceof BillingWorkRequestService )
            {
-               BillingWorkRequest billWrkReq = (BillingWorkRequest)wr;
+               BillingWorkRequestService billWrkReq = (BillingWorkRequestService)wr;
                 Object[] row = new Object[10];
                 
                 row[0] = billWrkReq;
-                row[1] = billWrkReq.getSender().getEmployee().getName();
-                row[2] = billWrkReq.getEquipmentId();
-                row[3] = billWrkReq.getEquipmentName();
-                row[4] = billWrkReq.getEquipment().getAvailableQuant() ;
-                row[5] = billWrkReq.getEquipment().getCost();
-                row[6] = billWrkReq.getEquipmentPrice();
-                row[7] = billWrkReq.getStatus();
-                row[8] = billWrkReq.getRequestdate();
-                row[9] = billWrkReq.getResolveDate();
+                row[1] = billWrkReq.getSendr().getEmployeee().getName();
+                row[2] = billWrkReq.getEquiId();
+                row[3] = billWrkReq.getEquiName();
+                row[4] = billWrkReq.getEqui().getAvailableeQuant() ;
+                row[5] = billWrkReq.getEqui().getPrice();
+                row[6] = billWrkReq.getEquiPrice();
+                row[7] = billWrkReq.getStat();
+                row[8] = billWrkReq.getReqDate();
+                row[9] = billWrkReq.getResolvDate();
                 model.addRow(row);
            }
            
@@ -98,11 +98,11 @@ public class EquipmentRequestJPanel extends javax.swing.JPanel {
     }
     
      private void populateCombo() {
-        equipJComboBox.removeAllItems();
+        equipJCombBox.removeAllItems();
         
-        for(Equipment equipment : ecosystem.getEquipmentList().getEquipmentList())
+        for(EquipmentService equipment : ecosystem.getEquipmentList().getEquipmentList())
         {
-            equipJComboBox.addItem(equipment);
+            equipJCombBox.addItem(equipment);
         }
      }
         
@@ -115,51 +115,51 @@ public class EquipmentRequestJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        txtEquipCost = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        txtquant = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        txtTotalCost = new javax.swing.JTextField();
-        btnBillingReq = new javax.swing.JButton();
+        jkLabel1 = new javax.swing.JLabel();
+        jkLabel3 = new javax.swing.JLabel();
+        jtxtEquipCost = new javax.swing.JTextField();
+        jkLabel4 = new javax.swing.JLabel();
+        txtquan = new javax.swing.JTextField();
+        jkLabel5 = new javax.swing.JLabel();
+        txtTotCost = new javax.swing.JTextField();
+        btnBilliReq = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblEquipReq = new javax.swing.JTable();
-        jLabel6 = new javax.swing.JLabel();
-        equipJComboBox = new javax.swing.JComboBox();
-        btnBack = new javax.swing.JButton();
+        jtblEquipReq = new javax.swing.JTable();
+        jkLabel6 = new javax.swing.JLabel();
+        equipJCombBox = new javax.swing.JComboBox();
+        jbtnBack = new javax.swing.JButton();
 
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("EQUIPMENT REQUEST PAGE");
+        jkLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
+        jkLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jkLabel1.setText("EQUIPMENT REQUEST PAGE");
 
-        jLabel3.setText("Equipment Price :");
+        jkLabel3.setText("Equipment Price :");
 
-        jLabel4.setText("Equipment Qunatity :");
+        jkLabel4.setText("Equipment Qunatity :");
 
-        txtquant.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtquan.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtquantFocusLost(evt);
+                txtquanFocusLost(evt);
             }
         });
-        txtquant.addActionListener(new java.awt.event.ActionListener() {
+        txtquan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtquantActionPerformed(evt);
+                txtquanActionPerformed(evt);
             }
         });
 
-        jLabel5.setText("Total Cost :");
+        jkLabel5.setText("Total Cost :");
 
-        txtTotalCost.setEditable(false);
+        txtTotCost.setEditable(false);
 
-        btnBillingReq.setText("Request for Fund");
-        btnBillingReq.addActionListener(new java.awt.event.ActionListener() {
+        btnBilliReq.setText("Request for Fund");
+        btnBilliReq.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBillingReqActionPerformed(evt);
+                btnBilliReqActionPerformed(evt);
             }
         });
 
-        tblEquipReq.setModel(new javax.swing.table.DefaultTableModel(
+        jtblEquipReq.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null},
@@ -170,21 +170,21 @@ public class EquipmentRequestJPanel extends javax.swing.JPanel {
                 "BillingRequestId", "Sender", "EquipmentId", "EquipmentName", "No of Units", "Equipment Price", "totalEquipmentCost", "Status", "Request Date", "Resolve Date"
             }
         ));
-        jScrollPane2.setViewportView(tblEquipReq);
+        jScrollPane2.setViewportView(jtblEquipReq);
 
-        jLabel6.setText("Select Equipment :");
+        jkLabel6.setText("Select Equipment :");
 
-        equipJComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        equipJComboBox.addActionListener(new java.awt.event.ActionListener() {
+        equipJCombBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        equipJCombBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                equipJComboBoxActionPerformed(evt);
+                equipJCombBoxActionPerformed(evt);
             }
         });
 
-        btnBack.setText("<< Back");
-        btnBack.addActionListener(new java.awt.event.ActionListener() {
+        jbtnBack.setText("<< Back");
+        jbtnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBackActionPerformed(evt);
+                jbtnBackActionPerformed(evt);
             }
         });
 
@@ -197,83 +197,83 @@ public class EquipmentRequestJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(300, 300, 300)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel3))
+                            .addComponent(jbtnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jkLabel4)
+                            .addComponent(jkLabel5)
+                            .addComponent(jkLabel6)
+                            .addComponent(jkLabel3))
                         .addGap(50, 50, 50)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtquant, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtEquipCost, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(equipJComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, 179, Short.MAX_VALUE)
-                            .addComponent(txtTotalCost)
-                            .addComponent(btnBillingReq, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(txtquan, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtxtEquipCost, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(equipJCombBox, javax.swing.GroupLayout.Alignment.LEADING, 0, 179, Short.MAX_VALUE)
+                            .addComponent(txtTotCost)
+                            .addComponent(btnBilliReq, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(40, 40, 40)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1087, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(300, 300, 300)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jkLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(77, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnBillingReq, equipJComboBox, txtEquipCost, txtTotalCost, txtquant});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnBilliReq, equipJCombBox, jtxtEquipCost, txtTotCost, txtquan});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jkLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(equipJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jkLabel6)
+                    .addComponent(equipJCombBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtEquipCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jkLabel3)
+                    .addComponent(jtxtEquipCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtquant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jkLabel4)
+                    .addComponent(txtquan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(txtTotalCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jkLabel5)
+                    .addComponent(txtTotCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBillingReq)
-                    .addComponent(btnBack))
+                    .addComponent(btnBilliReq)
+                    .addComponent(jbtnBack))
                 .addContainerGap(300, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnBillingReq, equipJComboBox, txtEquipCost, txtTotalCost, txtquant});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnBilliReq, equipJCombBox, jtxtEquipCost, txtTotCost, txtquan});
 
     }// </editor-fold>//GEN-END:initComponents
 
-    private void equipJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_equipJComboBoxActionPerformed
+    private void equipJCombBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_equipJCombBoxActionPerformed
         // TODO add your handling code here:
-        Equipment equipment = (Equipment) equipJComboBox.getSelectedItem();
+        EquipmentService equipment = (EquipmentService) equipJCombBox.getSelectedItem();
         if (equipment != null){
-          txtEquipCost.setText(String.valueOf(equipment.getCost()));
+          jtxtEquipCost.setText(String.valueOf(equipment.getPrice()));
           
           //Double totalcost = Integer.parseInt(txtquant.getText()) * Double.parseDouble(txtEquipCost.getText());
          // txtTotalCost.setText(String.valueOf(totalcost));
           
         }
-    }//GEN-LAST:event_equipJComboBoxActionPerformed
+    }//GEN-LAST:event_equipJCombBoxActionPerformed
 
-    private void btnBillingReqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBillingReqActionPerformed
+    private void btnBilliReqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBilliReqActionPerformed
         // TODO add your handling code here:
-        Equipment equipment = (Equipment) equipJComboBox.getSelectedItem();
-         Organization Billingorg = null;
-       for(Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList())  
+        EquipmentService equipment = (EquipmentService) equipJCombBox.getSelectedItem();
+         OrganizationService Billingorg = null;
+       for(Venture enterprise : network.getVentureDirectory().getVentureList())  
        {
-         for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
-             if(organization instanceof BillingOrganization)
+         for (OrganizationService organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+             if(organization instanceof BillingOrganizationService)
              {
                     Billingorg = organization;
                     break;
@@ -282,41 +282,41 @@ public class EquipmentRequestJPanel extends javax.swing.JPanel {
        }
          
         
-        BillingWorkRequest billingReq = new BillingWorkRequest();
-        billingReq.setEquipmentId(equipment.getEquipmentID());
-        billingReq.setEquipmentName(equipment.getEquipmetName());
-        billingReq.setEquipment(equipment);
-        billingReq.setSender(userAccount);
-        billingReq.setSenderNetwork(network);
-        billingReq.setSenderOrganization(organization);
-        billingReq.setRecieverNetwork(network);
-        billingReq.setRecieverOrganization(Billingorg);
-        billingReq.setEquipmentPrice(Double.parseDouble(txtTotalCost.getText()));
-        billingReq.setNoOfUnits(Integer.parseInt(txtquant.getText()));
-        billingReq.setRequestdate(new Date());
-        billingReq.setStatus("Fund Requested");
+        BillingWorkRequestService billingReq = new BillingWorkRequestService();
+        billingReq.setEquiId(equipment.getEquiID());
+        billingReq.setEquiName(equipment.getEquiName());
+        billingReq.setEqui(equipment);
+        billingReq.setSendr(userAccount);
+        billingReq.setSenderNet(network);
+        billingReq.setSenderOrg(organization);
+        billingReq.setRecieverNet(network);
+        billingReq.setRecieverOrg(Billingorg);
+        billingReq.setEquiPrice(Double.parseDouble(txtTotCost.getText()));
+        billingReq.setNumberOfUnits(Integer.parseInt(txtquan.getText()));
+        billingReq.setReqDate(new Date());
+        billingReq.setStat("Fund Requested");
         
        
           
         
         //billingReq.setRecieverOrganization(Emeorg);
-         for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
-             if(organization instanceof EquipmentOrganization                        )
+         for (OrganizationService organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+             if(organization instanceof EquipmentOrganizationService                        )
              {
-                   billingReq.setSenderOrganization(organization); 
+                   billingReq.setSenderOrg(organization); 
                     break;
                 }
             }
         
-        Billingorg.getWorkQueue().addWorkRequest(billingReq);
+        Billingorg.getWorkkQueue().addWorkRequest(billingReq);
         //System.out.println(billingReq.getEmergencyRequestId());
         populateRequestTable();
         
         
         
-    }//GEN-LAST:event_btnBillingReqActionPerformed
+    }//GEN-LAST:event_btnBilliReqActionPerformed
 
-    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+    private void jbtnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBackActionPerformed
         // TODO add your handling code here:
              userProcessContainer.remove(this);
         Component[] componentArray = userProcessContainer.getComponents();
@@ -325,36 +325,36 @@ public class EquipmentRequestJPanel extends javax.swing.JPanel {
         sysAdminwjp.populateTable();
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
-    }//GEN-LAST:event_btnBackActionPerformed
+    }//GEN-LAST:event_jbtnBackActionPerformed
 
-    private void txtquantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtquantActionPerformed
+    private void txtquanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtquanActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtquantActionPerformed
+    }//GEN-LAST:event_txtquanActionPerformed
 
-    private void txtquantFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtquantFocusLost
+    private void txtquanFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtquanFocusLost
         // TODO add your handling code here:
-        String qunat = txtquant.getText();
+        String qunat = txtquan.getText();
         if(!qunat.isEmpty())
         {
-         Double totalcost = Integer.parseInt(txtquant.getText()) * Double.parseDouble(txtEquipCost.getText());
-         txtTotalCost.setText(String.valueOf(totalcost));
+         Double totalcost = Integer.parseInt(txtquan.getText()) * Double.parseDouble(jtxtEquipCost.getText());
+         txtTotCost.setText(String.valueOf(totalcost));
         }
-    }//GEN-LAST:event_txtquantFocusLost
+    }//GEN-LAST:event_txtquanFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBack;
-    private javax.swing.JButton btnBillingReq;
-    private javax.swing.JComboBox equipJComboBox;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JButton btnBilliReq;
+    private javax.swing.JComboBox equipJCombBox;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable tblEquipReq;
-    private javax.swing.JTextField txtEquipCost;
-    private javax.swing.JTextField txtTotalCost;
-    private javax.swing.JTextField txtquant;
+    private javax.swing.JButton jbtnBack;
+    private javax.swing.JLabel jkLabel1;
+    private javax.swing.JLabel jkLabel3;
+    private javax.swing.JLabel jkLabel4;
+    private javax.swing.JLabel jkLabel5;
+    private javax.swing.JLabel jkLabel6;
+    private javax.swing.JTable jtblEquipReq;
+    private javax.swing.JTextField jtxtEquipCost;
+    private javax.swing.JTextField txtTotCost;
+    private javax.swing.JTextField txtquan;
     // End of variables declaration//GEN-END:variables
 }
