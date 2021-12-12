@@ -5,20 +5,20 @@
  */
 package userinterface.EmergencyUserWorkArea;
 
-import Business.EcoSystem;
-import Business.Enterprise.Enterprise;
-import Business.MedicalEmployment.Ambulance;
-import Business.MedicalEmployment.Doctor;
-import Business.Network.Network;
-import Business.Organization.AmbulanceOrganization;
-import Business.Organization.DoctorOrganization;
-import Business.Organization.EmergencyOrganization;
-import Business.Organization.Organization;
-import Business.UserAccount.UserAccount;
-import Business.WorkQueue.AmbulanceWorkRequest;
-import Business.WorkQueue.DoctorWorkRequest;
-import Business.WorkQueue.EmergencyPatientRequest;
-import Business.WorkQueue.WorkRequest;
+import Project.EcoSystem;
+import Project.Venture.Venture;
+import Project.MedicalEmployment.AmbulanceService;
+import Project.MedicalEmployment.DoctorService;
+import Project.Network.NetworkService;
+import Project.Organization.AmbulanceOrganizationService;
+import Project.Organization.DoctorOrganizationService;
+import Project.Organization.EmergencyOrganizationService;
+import Project.Organization.OrganizationService;
+import Project.UserAccount.UserAccountService;
+import Project.WorkQueue.AmbulanceWorkRequestService;
+import Project.WorkQueue.DoctorWorkRequestService;
+import Project.WorkQueue.EmergencyPatientRequestService;
+import Project.WorkQueue.WorkRequestService;
 import java.util.Date;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -27,7 +27,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Sandeep
+ * @author Dell
  */
 public class EmergencyPatientAdminWorkArea extends javax.swing.JPanel {
 
@@ -35,14 +35,14 @@ public class EmergencyPatientAdminWorkArea extends javax.swing.JPanel {
      * Creates new form EmergencyPatientAdminWorkArea
      */
     JPanel userProcessContainer;
-    Enterprise enterprise;
+    Venture enterprise;
     EcoSystem system;
-    Organization organization;
-    Network network;
-    UserAccount account;
-    EmergencyPatientRequest emergencyPatientReq;
-    EmergencyOrganization emergencyOrg; 
-    public EmergencyPatientAdminWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, Network network, EcoSystem business) {
+    OrganizationService organization;
+    NetworkService network;
+    UserAccountService account;
+    EmergencyPatientRequestService emergencyPatientReq;
+    EmergencyOrganizationService emergencyOrg; 
+    public EmergencyPatientAdminWorkArea(JPanel userProcessContainer, UserAccountService account, OrganizationService organization, Venture enterprise, NetworkService network, EcoSystem business) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
@@ -51,10 +51,10 @@ public class EmergencyPatientAdminWorkArea extends javax.swing.JPanel {
         this.network = network;
         this.account = account;
         
-        for (WorkRequest wr : organization.getWorkQueue().getWorkRequestList()) {
-            if(wr instanceof EmergencyPatientRequest) {
+        for (WorkRequestService wr : organization.getWorkkQueue().getWorkRequestList()) {
+            if(wr instanceof EmergencyPatientRequestService) {
                
-                 emergencyPatientReq = (EmergencyPatientRequest)wr;
+                 emergencyPatientReq = (EmergencyPatientRequestService)wr;
             }
         }
         
@@ -70,26 +70,26 @@ public class EmergencyPatientAdminWorkArea extends javax.swing.JPanel {
      */
     
     public void populateTable(){
-        DefaultTableModel model = (DefaultTableModel) WorkRequestTable.getModel();
+        DefaultTableModel model = (DefaultTableModel) WorkReqTable.getModel();
         model.setRowCount(0);
-        for (WorkRequest wr : organization.getWorkQueue().getWorkRequestList()) {
-            if(wr instanceof EmergencyPatientRequest) {
+        for (WorkRequestService wr : organization.getWorkkQueue().getWorkRequestList()) {
+            if(wr instanceof EmergencyPatientRequestService) {
                 
-                    EmergencyPatientRequest epr = (EmergencyPatientRequest)wr;
-                    if(epr.getAcceptedUser() == null || epr.getAcceptedUser().getUsername().equals(account.getUsername()))
+                    EmergencyPatientRequestService epr = (EmergencyPatientRequestService)wr;
+                    if(epr.getAcceptUser() == null || epr.getAcceptUser().getUserName().equals(account.getUserName()))
                     {
 
                     Object[] row = new Object[model.getColumnCount()];
                     row[0] = epr;
-                    row[1] = epr.getPatient().getPatientName();//epr.getSender().getEmployee().getName();
-                    row[2] = epr.getPatient().getPatientName();
-                    row[3] = epr.getPatient().getAddress();
-                    row[4] = epr.getCriticality();
-                    row[5] = epr.getStatus();// epr.getRequestdate();
-                    row[6] = epr.getRequestDate();
-                    row[7] = epr.getPatient().getPhoneNumber();
-                    row[8] = epr.getEmergencyDoctor() != null ? epr.getEmergencyDoctor() : "" ;
-                    row[9] = epr.getAmbulance();
+                    row[1] = epr.getPat().getPatName();//epr.getSender().getEmployee().getName();
+                    row[2] = epr.getPat().getPatName();
+                    row[3] = epr.getPat().getAdd();
+                    row[4] = epr.getCritical();
+                    row[5] = epr.getStat();// epr.getRequestdate();
+                    row[6] = epr.getReqDate();
+                    row[7] = epr.getPat().getPhoneNo();
+                    row[8] = epr.getEmerDoctor() != null ? epr.getEmerDoctor() : "" ;
+                    row[9] = epr.getAmb();
                     model.addRow(row);
                     }
             }
@@ -102,21 +102,21 @@ public class EmergencyPatientAdminWorkArea extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        WorkRequestTable = new javax.swing.JTable();
-        btnAcknowledge = new javax.swing.JButton();
-        btnReject = new javax.swing.JButton();
-        btnProcess = new javax.swing.JButton();
-        btnCompleteRequest = new javax.swing.JButton();
-        btnAssigDoc = new javax.swing.JButton();
+        WorkReqTable = new javax.swing.JTable();
+        btnAck = new javax.swing.JButton();
+        btnRej = new javax.swing.JButton();
+        btnProc = new javax.swing.JButton();
+        btnCompleteReq = new javax.swing.JButton();
+        btnAssigDoctor = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tblChildReq = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        btnAmbulance = new javax.swing.JButton();
-        btnClear = new javax.swing.JButton();
+        tblChildRequest = new javax.swing.JTable();
+        jkLabel1 = new javax.swing.JLabel();
+        btnAmb = new javax.swing.JButton();
+        jbtnClear = new javax.swing.JButton();
         btnRefreshTbl = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        jkLabel2 = new javax.swing.JLabel();
 
-        WorkRequestTable.setModel(new javax.swing.table.DefaultTableModel(
+        WorkReqTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null},
@@ -127,49 +127,49 @@ public class EmergencyPatientAdminWorkArea extends javax.swing.JPanel {
                 "RequestId", "Sender", "Patient Name", "Patient Address", "Criticality", "Status", "Request Date", "Phone Number", "Doctor", "Ambulance"
             }
         ));
-        WorkRequestTable.addMouseListener(new java.awt.event.MouseAdapter() {
+        WorkReqTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                WorkRequestTableMouseClicked(evt);
+                WorkReqTableMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(WorkRequestTable);
+        jScrollPane1.setViewportView(WorkReqTable);
 
-        btnAcknowledge.setText("Accept Request");
-        btnAcknowledge.addActionListener(new java.awt.event.ActionListener() {
+        btnAck.setText("Accept Request");
+        btnAck.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAcknowledgeActionPerformed(evt);
+                btnAckActionPerformed(evt);
             }
         });
 
-        btnReject.setText("Reject Request");
-        btnReject.addActionListener(new java.awt.event.ActionListener() {
+        btnRej.setText("Reject Request");
+        btnRej.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRejectActionPerformed(evt);
+                btnRejActionPerformed(evt);
             }
         });
 
-        btnProcess.setText("Process Request");
-        btnProcess.addActionListener(new java.awt.event.ActionListener() {
+        btnProc.setText("Process Request");
+        btnProc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnProcessActionPerformed(evt);
+                btnProcActionPerformed(evt);
             }
         });
 
-        btnCompleteRequest.setText("Complete Request");
-        btnCompleteRequest.addActionListener(new java.awt.event.ActionListener() {
+        btnCompleteReq.setText("Complete Request");
+        btnCompleteReq.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCompleteRequestActionPerformed(evt);
+                btnCompleteReqActionPerformed(evt);
             }
         });
 
-        btnAssigDoc.setText("Assign Doctor");
-        btnAssigDoc.addActionListener(new java.awt.event.ActionListener() {
+        btnAssigDoctor.setText("Assign Doctor");
+        btnAssigDoctor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAssigDocActionPerformed(evt);
+                btnAssigDoctorActionPerformed(evt);
             }
         });
 
-        tblChildReq.setModel(new javax.swing.table.DefaultTableModel(
+        tblChildRequest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null},
@@ -180,23 +180,23 @@ public class EmergencyPatientAdminWorkArea extends javax.swing.JPanel {
                 "RequestId", "Sender", "Patient Name", "Patient Address", "Criticality", "Status", "Request Date", "Phone Number", "Doctor", "Ambulance"
             }
         ));
-        jScrollPane3.setViewportView(tblChildReq);
+        jScrollPane3.setViewportView(tblChildRequest);
 
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("EMERGENCY CHILD REQUEST");
+        jkLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        jkLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jkLabel1.setText("EMERGENCY CHILD REQUEST");
 
-        btnAmbulance.setText("Assigned Ambulance");
-        btnAmbulance.addActionListener(new java.awt.event.ActionListener() {
+        btnAmb.setText("Assigned Ambulance");
+        btnAmb.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAmbulanceActionPerformed(evt);
+                btnAmbActionPerformed(evt);
             }
         });
 
-        btnClear.setText("Clear");
-        btnClear.addActionListener(new java.awt.event.ActionListener() {
+        jbtnClear.setText("Clear");
+        jbtnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClearActionPerformed(evt);
+                jbtnClearActionPerformed(evt);
             }
         });
 
@@ -207,9 +207,9 @@ public class EmergencyPatientAdminWorkArea extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setText("EMERGENCY PATIENT ADMIN WORK AREA");
+        jkLabel2.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
+        jkLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jkLabel2.setText("EMERGENCY PATIENT ADMIN WORK AREA");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -222,151 +222,151 @@ public class EmergencyPatientAdminWorkArea extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(357, 357, 357)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jkLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 981, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(btnRefreshTbl, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnAcknowledge)
+                                        .addComponent(btnAck)
                                         .addGap(20, 20, 20)
-                                        .addComponent(btnAmbulance)
+                                        .addComponent(btnAmb)
                                         .addGap(20, 20, 20)
-                                        .addComponent(btnAssigDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnAssigDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(20, 20, 20)
-                                        .addComponent(btnReject)
+                                        .addComponent(btnRej)
                                         .addGap(20, 20, 20)
-                                        .addComponent(btnProcess)
+                                        .addComponent(btnProc)
                                         .addGap(20, 20, 20)
-                                        .addComponent(btnCompleteRequest))
+                                        .addComponent(btnCompleteReq))
                                     .addComponent(jScrollPane1)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(305, 305, 305)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jkLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(92, 92, 92)
-                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jbtnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(46, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jkLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnRefreshTbl)
                 .addGap(11, 11, 11)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAcknowledge)
-                    .addComponent(btnReject)
-                    .addComponent(btnProcess)
-                    .addComponent(btnCompleteRequest)
-                    .addComponent(btnAssigDoc)
-                    .addComponent(btnAmbulance))
+                    .addComponent(btnAck)
+                    .addComponent(btnRej)
+                    .addComponent(btnProc)
+                    .addComponent(btnCompleteReq)
+                    .addComponent(btnAssigDoctor)
+                    .addComponent(btnAmb))
                 .addGap(59, 59, 59)
-                .addComponent(jLabel1)
+                .addComponent(jkLabel1)
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
-                .addComponent(btnClear)
+                .addComponent(jbtnClear)
                 .addContainerGap(135, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAcknowledgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcknowledgeActionPerformed
-          int count = WorkRequestTable.getSelectedRowCount();
+    private void btnAckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAckActionPerformed
+          int count = WorkReqTable.getSelectedRowCount();
         if(count != 1) {
             JOptionPane.showMessageDialog(null, "Select a request");
         }else {
-            int selectedRow = WorkRequestTable.getSelectedRow();
-            EmergencyPatientRequest emerReq = (EmergencyPatientRequest) WorkRequestTable.getValueAt(selectedRow, 0);
+            int selectedRow = WorkReqTable.getSelectedRow();
+            EmergencyPatientRequestService emerReq = (EmergencyPatientRequestService) WorkReqTable.getValueAt(selectedRow, 0);
             
-            System.out.println(emerReq.getStatus());
+            System.out.println(emerReq.getStat());
             
-            if(emerReq.getStatus().equals("Rejected")) {
+            if(emerReq.getStat().equals("Rejected")) {
                 JOptionPane.showMessageDialog(null, "Request is already Rejected");
-            }else if(emerReq.getStatus().equals("Accepted")) {
+            }else if(emerReq.getStat().equals("Accepted")) {
                 JOptionPane.showMessageDialog(null, "Request is already Accepted");
-            }else if(emerReq.getStatus().equals("Processing")) {
+            }else if(emerReq.getStat().equals("Processing")) {
                 JOptionPane.showMessageDialog(null, "Request is already Processing");
-            }else if(emerReq.getStatus().equals("Completed")) {
+            }else if(emerReq.getStat().equals("Completed")) {
                 JOptionPane.showMessageDialog(null, "Request is already Completed");
-            }else if(emerReq.getStatus().equals("Cancelled")) {
+            }else if(emerReq.getStat().equals("Cancelled")) {
                 JOptionPane.showMessageDialog(null, "Request is already cancelled by sender");
-            }else if(emerReq.getStatus().equals("Assigned Ambulance")) {
+            }else if(emerReq.getStat().equals("Assigned Ambulance")) {
                 JOptionPane.showMessageDialog(null, "Request is already Assigned for Ambulance");
-            }else if(emerReq.getStatus().equals("Assigned Doctor")) {
+            }else if(emerReq.getStat().equals("Assigned Doctor")) {
                 JOptionPane.showMessageDialog(null, "Request is already Assigned a Doctor");
             }            
             else {
                 String msg = JOptionPane.showInputDialog("Additional Message");
                   if(msg != null)
                 {
-                emerReq.setStatus("Accepted");
-                System.out.println("Accepted uSer" +account.getUsername() );
-                emerReq.setAcceptedUser(account);
-                emerReq.setMessage(msg);
+                emerReq.setStat("Accepted");
+                System.out.println("Accepted uSer" +account.getUserName() );
+                emerReq.setAcceptUser(account);
+                emerReq.setMes(msg);
                 }
                 populateTable();
             }
             //emerReq.setStatus("Accepted");
         }
-    }//GEN-LAST:event_btnAcknowledgeActionPerformed
+    }//GEN-LAST:event_btnAckActionPerformed
 
-    private void btnRejectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRejectActionPerformed
-       int count = WorkRequestTable.getSelectedRowCount();
+    private void btnRejActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRejActionPerformed
+       int count = WorkReqTable.getSelectedRowCount();
         if(count != 1) {
             JOptionPane.showMessageDialog(null, "Select a request");
         }else {
-            int selectedRow = WorkRequestTable.getSelectedRow();
-            EmergencyPatientRequest emerReq = (EmergencyPatientRequest) WorkRequestTable.getValueAt(selectedRow, 0);
-            if(emerReq.getStatus().equals("Rejected")) {
+            int selectedRow = WorkReqTable.getSelectedRow();
+            EmergencyPatientRequestService emerReq = (EmergencyPatientRequestService) WorkReqTable.getValueAt(selectedRow, 0);
+            if(emerReq.getStat().equals("Rejected")) {
                 JOptionPane.showMessageDialog(null, "Request is already Rejected");
-            }else if(emerReq.getStatus().equals("Accepted")) {
+            }else if(emerReq.getStat().equals("Accepted")) {
                 JOptionPane.showMessageDialog(null, "Request is already Accepted");
-            }else if(emerReq.getStatus().equals("Processing")) {
+            }else if(emerReq.getStat().equals("Processing")) {
                 JOptionPane.showMessageDialog(null, "Request is already Accepted and Processing");
-            }else if(emerReq.getStatus().equals("Completed")) {
+            }else if(emerReq.getStat().equals("Completed")) {
                 JOptionPane.showMessageDialog(null, "Request is already Completed");
-            }else if(emerReq.getStatus().equals("Cancelled")) {
+            }else if(emerReq.getStat().equals("Cancelled")) {
                 JOptionPane.showMessageDialog(null, "Request is already cancelled by sender");
-            }else if(emerReq.getStatus().equals("Assigned Ambulance")) {
+            }else if(emerReq.getStat().equals("Assigned Ambulance")) {
                 JOptionPane.showMessageDialog(null, "Request is already Assigned for Ambulance");
-            }else if(emerReq.getStatus().equals("Assigned Doctor")) {
+            }else if(emerReq.getStat().equals("Assigned Doctor")) {
                 JOptionPane.showMessageDialog(null, "Request is already Assigned a Doctor");
             }             
             else {
                 String msg = JOptionPane.showInputDialog("Additional Message");
                   if(msg != null)
                 {
-                emerReq.setStatus("Rejected");
-                emerReq.setMessage(msg);
+                emerReq.setStat("Rejected");
+                emerReq.setMes(msg);
                 }
                 populateTable();
             }
         }
-    }//GEN-LAST:event_btnRejectActionPerformed
+    }//GEN-LAST:event_btnRejActionPerformed
 
-    private void btnProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcessActionPerformed
-        int count = WorkRequestTable.getSelectedRowCount();
+    private void btnProcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcActionPerformed
+        int count = WorkReqTable.getSelectedRowCount();
         if (count != 1) {
             JOptionPane.showMessageDialog(null, "Select one row", "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
-            int selectedRow = WorkRequestTable.getSelectedRow();
-            EmergencyPatientRequest emerReq = (EmergencyPatientRequest) WorkRequestTable.getValueAt(selectedRow, 0);
-            if(emerReq.getStatus().equals("Cancelled")) {
+            int selectedRow = WorkReqTable.getSelectedRow();
+            EmergencyPatientRequestService emerReq = (EmergencyPatientRequestService) WorkReqTable.getValueAt(selectedRow, 0);
+            if(emerReq.getStat().equals("Cancelled")) {
                 JOptionPane.showMessageDialog(null, "Request is already cancelled by sender");
-            }else if(emerReq.getStatus().equals("Processing")){
+            }else if(emerReq.getStat().equals("Processing")){
                 JOptionPane.showMessageDialog(null, "Request is already Processing");
-            }else if(emerReq.getStatus().equals("Rejected")){
+            }else if(emerReq.getStat().equals("Rejected")){
                 JOptionPane.showMessageDialog(null, "Request is already Rejected");
-            }else if(emerReq.getStatus().equals("Completed")){
+            }else if(emerReq.getStat().equals("Completed")){
                 JOptionPane.showMessageDialog(null, "Request is already Completed");
-            }else if(emerReq.getStatus().equals("Requested")) {
+            }else if(emerReq.getStat().equals("Requested")) {
                 JOptionPane.showMessageDialog(null, "Request is not yet Accepted");
-            }else if(emerReq.getAmbulance() == null || emerReq.getEmergencyDoctor() == null)
+            }else if(emerReq.getAmb() == null || emerReq.getEmerDoctor() == null)
             {
                  JOptionPane.showMessageDialog(null, "Request is not yet Assigned to Doctor or Ambulance, So it can not be processed");
             }
@@ -374,47 +374,47 @@ public class EmergencyPatientAdminWorkArea extends javax.swing.JPanel {
                 String msg = JOptionPane.showInputDialog("Additional Message");     
                   if(msg != null)
                 {
-                emerReq.setStatus("Processing");
-                emerReq.setMessage(msg);
+                emerReq.setStat("Processing");
+                emerReq.setMes(msg);
                 }
                 populateTable();
             }            
         }
-    }//GEN-LAST:event_btnProcessActionPerformed
+    }//GEN-LAST:event_btnProcActionPerformed
 
-    private void btnCompleteRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompleteRequestActionPerformed
-        int count = WorkRequestTable.getSelectedRowCount();
+    private void btnCompleteReqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompleteReqActionPerformed
+        int count = WorkReqTable.getSelectedRowCount();
         if(count != 1) {
             JOptionPane.showMessageDialog(null, "Select a request");
         }else {
-            int selectedRow = WorkRequestTable.getSelectedRow();
-            EmergencyPatientRequest emerReq = (EmergencyPatientRequest) WorkRequestTable.getValueAt(selectedRow, 0);
+            int selectedRow = WorkReqTable.getSelectedRow();
+            EmergencyPatientRequestService emerReq = (EmergencyPatientRequestService) WorkReqTable.getValueAt(selectedRow, 0);
             String childStatus = "";
          
-            Organization doctorOrg = null;
-         for(Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList())
+            OrganizationService doctorOrg = null;
+         for(Venture enterprise : network.getVentureDirectory().getVentureList())
         {
-            for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
-               if (organization instanceof DoctorOrganization ) {
+            for (OrganizationService organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+               if (organization instanceof DoctorOrganizationService ) {
 
                    doctorOrg = organization;
                    break;
                }
            }
         }
-        for(Doctor doc : system.getDoctroDirectory().getDoctorList())
+        for(DoctorService doc : system.getDoctroDirectory().getDoctorrList())
             {
-               if(doc.getDocName().equals(emergencyPatientReq.getEmergencyDoctor().getDocName()))
+               if(doc.getDoctorName().equals(emergencyPatientReq.getEmerDoctor().getDoctorName()))
                {
-                   for(UserAccount ua : doctorOrg.getUserAccountDirectory().getUserAccountList())
+                   for(UserAccountService ua : doctorOrg.getUserAccounttDirectory().getUserAccounttList())
                    {
-                       if(ua.getEmployee().getName().equals(emergencyPatientReq.getEmergencyDoctor().getDocName()))
+                       if(ua.getEmployeee().getName().equals(emergencyPatientReq.getEmerDoctor().getDoctorName()))
                        {
-                            for (WorkRequest wr : ua.getWorkQueue().getWorkRequestList()) {
-                                if(wr instanceof DoctorWorkRequest) {
+                            for (WorkRequestService wr : ua.getWorkkQueue().getWorkRequestList()) {
+                                if(wr instanceof DoctorWorkRequestService) {
 
-                                    DoctorWorkRequest epr = (DoctorWorkRequest)wr;
-                                    childStatus = epr.getStatus();
+                                    DoctorWorkRequestService epr = (DoctorWorkRequestService)wr;
+                                    childStatus = epr.getStat();
                                 }
                             }
                        }
@@ -422,11 +422,11 @@ public class EmergencyPatientAdminWorkArea extends javax.swing.JPanel {
                }
             }
             
-         Organization ambulanceOrg = null;
-         for(Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList())
+         OrganizationService ambulanceOrg = null;
+         for(Venture enterprise : network.getVentureDirectory().getVentureList())
          {
-            for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
-               if (organization instanceof AmbulanceOrganization ) {
+            for (OrganizationService organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+               if (organization instanceof AmbulanceOrganizationService ) {
 
                    ambulanceOrg = organization;
                    break;
@@ -434,19 +434,19 @@ public class EmergencyPatientAdminWorkArea extends javax.swing.JPanel {
            }
         }
          
-          for(Ambulance amb : system.getAmbulanceDirectory().getambulanceList())
+          for(AmbulanceService amb : system.getAmbulanceDirectory().getambulanceList())
             {
-               if(amb.getAmbulanceNumber().equals(emergencyPatientReq.getAmbulance().getAmbulanceNumber()))
+               if(amb.getAmbulanceeNumber().equals(emergencyPatientReq.getAmb().getAmbulanceeNumber()))
                {
-                   for(UserAccount ua : ambulanceOrg.getUserAccountDirectory().getUserAccountList())
+                   for(UserAccountService ua : ambulanceOrg.getUserAccounttDirectory().getUserAccounttList())
                    {
-                       if(ua.getEmployee().getName().equals(emergencyPatientReq.getAmbulance().getDriverName()))
+                       if(ua.getEmployeee().getName().equals(emergencyPatientReq.getAmb().getDriverrName()))
                        {
-                            for (WorkRequest wr : ua.getWorkQueue().getWorkRequestList()) {
-                                if(wr instanceof AmbulanceWorkRequest) {
+                            for (WorkRequestService wr : ua.getWorkkQueue().getWorkRequestList()) {
+                                if(wr instanceof AmbulanceWorkRequestService) {
 
-                                    AmbulanceWorkRequest epr = (AmbulanceWorkRequest)wr;
-                                    childStatus = epr.getStatus();
+                                    AmbulanceWorkRequestService epr = (AmbulanceWorkRequestService)wr;
+                                    childStatus = epr.getStat();
                                 }
                             }
                        }
@@ -474,48 +474,48 @@ public class EmergencyPatientAdminWorkArea extends javax.swing.JPanel {
                 String msg = JOptionPane.showInputDialog("Additional Message");
                   if(msg != null)
                 {
-                emerReq.setResolveDate(new Date());
-                emerReq.setStatus("Completed");
-                emerReq.setMessage(msg);
+                emerReq.setResolvDate(new Date());
+                emerReq.setStat("Completed");
+                emerReq.setMes(msg);
                 }
                 populateTable();
             }
         }
-    }//GEN-LAST:event_btnCompleteRequestActionPerformed
+    }//GEN-LAST:event_btnCompleteReqActionPerformed
 
-    private void btnAssigDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssigDocActionPerformed
+    private void btnAssigDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssigDoctorActionPerformed
         // TODO add your handling code here:
         
-         int count = WorkRequestTable.getSelectedRowCount();
+         int count = WorkReqTable.getSelectedRowCount();
         if (count != 1) {
             JOptionPane.showMessageDialog(null, "Select one row", "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
-            int selectedRow = WorkRequestTable.getSelectedRow();
-            EmergencyPatientRequest emerReq = (EmergencyPatientRequest) WorkRequestTable.getValueAt(selectedRow, 0);
-            if(emerReq.getStatus().equals("Cancelled")) {
+            int selectedRow = WorkReqTable.getSelectedRow();
+            EmergencyPatientRequestService emerReq = (EmergencyPatientRequestService) WorkReqTable.getValueAt(selectedRow, 0);
+            if(emerReq.getStat().equals("Cancelled")) {
                 JOptionPane.showMessageDialog(null, "Request is already cancelled by sender");
-            }else if(emerReq.getStatus().equals("Processing")){
+            }else if(emerReq.getStat().equals("Processing")){
                 JOptionPane.showMessageDialog(null, "Request is already Processing");
-            }else if(emerReq.getStatus().equals("Rejected")){
+            }else if(emerReq.getStat().equals("Rejected")){
                 JOptionPane.showMessageDialog(null, "Request is already Rejected");
-            }else if(emerReq.getStatus().equals("Completed")){
+            }else if(emerReq.getStat().equals("Completed")){
                 JOptionPane.showMessageDialog(null, "Request is already Completed");
-            }else if(emerReq.getStatus().equals("Requested")) {
+            }else if(emerReq.getStat().equals("Requested")) {
                 JOptionPane.showMessageDialog(null, "Request is not yet Accepted");
-            }else if(emerReq.getStatus().equals("Assigned Doctor")) {
+            }else if(emerReq.getStat().equals("Assigned Doctor")) {
                 JOptionPane.showMessageDialog(null, "Request is already Assigned a Doctor");
             }
             else {
                 
                 
-               if(emergencyPatientReq.getEmergencyDoctor() == null)
+               if(emergencyPatientReq.getEmerDoctor() == null)
                {
                    
-                   Organization doctorOrg = null;
-                     for(Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList())
+                   OrganizationService doctorOrg = null;
+                     for(Venture enterprise : network.getVentureDirectory().getVentureList())
                     {
-                        for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
-                           if (organization instanceof DoctorOrganization ) {
+                        for (OrganizationService organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                           if (organization instanceof DoctorOrganizationService ) {
 
                                doctorOrg = organization;
                                break;
@@ -523,34 +523,34 @@ public class EmergencyPatientAdminWorkArea extends javax.swing.JPanel {
                        }
                     }
                    
-                    int size = system.getDoctroDirectory().getDoctorList().size();
+                    int size = system.getDoctroDirectory().getDoctorrList().size();
                     String[] DoctorList = new String[size+1]; ;
                     int i= 0;
                     DoctorList[i] = "Select";
                     i++;
                     int availableCount = 0;
-                    for(Doctor doctor : system.getDoctroDirectory().getDoctorList())
+                    for(DoctorService doctor : system.getDoctroDirectory().getDoctorrList())
                     {
-                        if(doctor.getEmergencyDoctor())
+                        if(doctor.getEmergencyDoctorr())
                         {
-                            for(Doctor doc : system.getDoctroDirectory().getDoctorList())
+                            for(DoctorService doc : system.getDoctroDirectory().getDoctorrList())
                         {
-                           if(doc.getDocName().equals(doctor.getDocName()))
+                           if(doc.getDoctorName().equals(doctor.getDoctorName()))
                            {
-                               for(UserAccount ua : doctorOrg.getUserAccountDirectory().getUserAccountList())
+                               for(UserAccountService ua : doctorOrg.getUserAccounttDirectory().getUserAccounttList())
                                {
-                                   if(ua.getEmployee().getName().equals(doctor.getDocName()))
+                                   if(ua.getEmployeee().getName().equals(doctor.getDoctorName()))
                                    {
-                                       for(WorkRequest wr : ua.getWorkQueue().getWorkRequestList())
+                                       for(WorkRequestService wr : ua.getWorkkQueue().getWorkRequestList())
                                        {
-                                           if(wr instanceof  DoctorWorkRequest)
+                                           if(wr instanceof  DoctorWorkRequestService)
                                            {
-                                               DoctorWorkRequest dwr = (DoctorWorkRequest)wr;
+                                               DoctorWorkRequestService dwr = (DoctorWorkRequestService)wr;
                                                {
-                                                   if(!dwr.getStatus().equals("Completed"))
+                                                   if(!dwr.getStat().equals("Completed"))
                                                    {
                                                        availableCount++;
-                                                        DoctorList[i] = doctor.getDocName();
+                                                        DoctorList[i] = doctor.getDoctorName();
                                                         i++;
                                                        
                                                    }
@@ -568,7 +568,7 @@ public class EmergencyPatientAdminWorkArea extends javax.swing.JPanel {
                             
                             if(availableCount < 1)
                             {
-                            DoctorList[i] = doctor.getDocName();
+                            DoctorList[i] = doctor.getDoctorName();
                             i++;
                             }
                         }
@@ -593,28 +593,28 @@ public class EmergencyPatientAdminWorkArea extends javax.swing.JPanel {
                     if(!docterName.equals("Select"))
                     {
 
-                    for(Doctor doc : system.getDoctroDirectory().getDoctorList())
+                    for(DoctorService doc : system.getDoctroDirectory().getDoctorrList())
                         {
-                           if(doc.getDocName().equals(docterName))
+                           if(doc.getDoctorName().equals(docterName))
                            {
-                               for(UserAccount ua : doctorOrg.getUserAccountDirectory().getUserAccountList())
+                               for(UserAccountService ua : doctorOrg.getUserAccounttDirectory().getUserAccounttList())
                                {
-                                   if(ua.getEmployee().getName().equals(docterName))
+                                   if(ua.getEmployeee().getName().equals(docterName))
                                    {
                                        
                                        System.out.println(docterName + "Word Requet ");
-                                       emergencyPatientReq.setEmergencyDoctor(doc);
-                                       DoctorWorkRequest doctorwrkReq = new DoctorWorkRequest();
-                                       doctorwrkReq.setPatient(emergencyPatientReq.getPatient());
-                                       doctorwrkReq.setEmergencyDoctor(doc);
-                                       doctorwrkReq.setRequestdate(new Date());
-                                       doctorwrkReq.setSenderNetwork(network);
-                                       doctorwrkReq.setSenderOrganization(organization);
-                                       doctorwrkReq.setRecieverOrganization(doctorOrg);
-                                       doctorwrkReq.setCriticality(emergencyPatientReq.getCriticality());
-                                       doctorwrkReq.setStatus("Assigned Doctor");
-                                       doctorwrkReq.setEmergencyPatientRequest(emergencyPatientReq);
-                                       ua.getWorkQueue().addWorkRequest(doctorwrkReq);
+                                       emergencyPatientReq.setEmerDoctor(doc);
+                                       DoctorWorkRequestService doctorwrkReq = new DoctorWorkRequestService();
+                                       doctorwrkReq.setPat(emergencyPatientReq.getPat());
+                                       doctorwrkReq.setEmerDoctor(doc);
+                                       doctorwrkReq.setReqDate(new Date());
+                                       doctorwrkReq.setSenderNet(network);
+                                       doctorwrkReq.setSenderOrg(organization);
+                                       doctorwrkReq.setRecieverOrg(doctorOrg);
+                                       doctorwrkReq.setCritical(emergencyPatientReq.getCritical());
+                                       doctorwrkReq.setStat("Assigned Doctor");
+                                       doctorwrkReq.setEmergencyPatRequest(emergencyPatientReq);
+                                       ua.getWorkkQueue().addWorkRequest(doctorwrkReq);
                                    }
                                }
             //                   account.getWorkQueue().addWorkRequest(emergencyPatientReq);
@@ -622,7 +622,7 @@ public class EmergencyPatientAdminWorkArea extends javax.swing.JPanel {
                            }
                         }
 
-                    emergencyPatientReq.setStatus("Assigned Doctor");
+                    emergencyPatientReq.setStat("Assigned Doctor");
                      populateTable();
                    }
                 }
@@ -632,33 +632,33 @@ public class EmergencyPatientAdminWorkArea extends javax.swing.JPanel {
                }
             }
         }
-    }//GEN-LAST:event_btnAssigDocActionPerformed
+    }//GEN-LAST:event_btnAssigDoctorActionPerformed
 
-    private void btnAmbulanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAmbulanceActionPerformed
+    private void btnAmbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAmbActionPerformed
         // TODO add your handling code here:
-         int count = WorkRequestTable.getSelectedRowCount();
+         int count = WorkReqTable.getSelectedRowCount();
         if (count != 1) {
             JOptionPane.showMessageDialog(null, "Select one row", "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
-            int selectedRow = WorkRequestTable.getSelectedRow();
-            EmergencyPatientRequest emerReq = (EmergencyPatientRequest) WorkRequestTable.getValueAt(selectedRow, 0);
-            System.out.println(emerReq.getStatus());
-            if(emerReq.getStatus().equals("Cancelled")) {
+            int selectedRow = WorkReqTable.getSelectedRow();
+            EmergencyPatientRequestService emerReq = (EmergencyPatientRequestService) WorkReqTable.getValueAt(selectedRow, 0);
+            System.out.println(emerReq.getStat());
+            if(emerReq.getStat().equals("Cancelled")) {
                 JOptionPane.showMessageDialog(null, "Request is already cancelled by sender");
-            }else if(emerReq.getStatus().equals("Processing")){
+            }else if(emerReq.getStat().equals("Processing")){
                 JOptionPane.showMessageDialog(null, "Request is already Processing");
-            }else if(emerReq.getStatus().equals("Rejected")){
+            }else if(emerReq.getStat().equals("Rejected")){
                 JOptionPane.showMessageDialog(null, "Request is already Rejected");
-            }else if(emerReq.getStatus().equals("Completed")){
+            }else if(emerReq.getStat().equals("Completed")){
                 JOptionPane.showMessageDialog(null, "Request is already Completed");
-            }else if(emerReq.getStatus().equals("Requested")) {
+            }else if(emerReq.getStat().equals("Requested")) {
                 JOptionPane.showMessageDialog(null, "Request is not yet Accepted");
-            }else if(emerReq.getStatus().equals("Assigned Ambulance")) {
+            }else if(emerReq.getStat().equals("Assigned Ambulance")) {
                 JOptionPane.showMessageDialog(null, "Request is already Assigned for Ambulance");
             }
            else {
                 
-             if(emergencyPatientReq.getAmbulance() == null)
+             if(emergencyPatientReq.getAmb() == null)
              {
                  
 
@@ -668,9 +668,9 @@ public class EmergencyPatientAdminWorkArea extends javax.swing.JPanel {
                 int i= 0;
                 ambulanceList[i] = "Select";
                 i++;
-                for(Ambulance ambulance : system.getAmbulanceDirectory().getambulanceList())
+                for(AmbulanceService ambulance : system.getAmbulanceDirectory().getambulanceList())
                 {
-                    ambulanceList[i] = String.valueOf(ambulance.getAmbulanceNumber());
+                    ambulanceList[i] = String.valueOf(ambulance.getAmbulanceeNumber());
                     i++;
                 }
 
@@ -688,11 +688,11 @@ public class EmergencyPatientAdminWorkArea extends javax.swing.JPanel {
                 }
                 if(!options[selection].equals("Cancel"))
                 {
-                        Organization ambulanceOrg = null;
-                        for(Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList())
+                        OrganizationService ambulanceOrg = null;
+                        for(Venture enterprise : network.getVentureDirectory().getVentureList())
                        {
-                           for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
-                              if (organization instanceof AmbulanceOrganization ) {
+                           for (OrganizationService organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                              if (organization instanceof AmbulanceOrganizationService ) {
 
                                   ambulanceOrg = organization;
                                   break;
@@ -702,33 +702,33 @@ public class EmergencyPatientAdminWorkArea extends javax.swing.JPanel {
 
                        Object ambulanceName = combo.getSelectedItem();
 
-                       for(Ambulance ambulance : system.getAmbulanceDirectory().getambulanceList())
+                       for(AmbulanceService ambulance : system.getAmbulanceDirectory().getambulanceList())
                            {
                                System.out.println(ambulanceName + "Word Requet 1");
-                              if(ambulance.getAmbulanceNumber().equals(ambulanceName))
+                              if(ambulance.getAmbulanceeNumber().equals(ambulanceName))
                               {
                                     System.out.println(ambulanceName + "Word Requet 2");
-                                  for(UserAccount ua : ambulanceOrg.getUserAccountDirectory().getUserAccountList())
+                                  for(UserAccountService ua : ambulanceOrg.getUserAccounttDirectory().getUserAccounttList())
                                   {
-                                      if(ua.getEmployee().getName().equals(ambulance.getDriverName()))
+                                      if(ua.getEmployeee().getName().equals(ambulance.getDriverrName()))
                                       {
                                           System.out.println(ambulanceName + "Word Requet 3 ");
                                           //emergencyPatientReq.etEmergencyDoctor(doc);
-                                          AmbulanceWorkRequest ambulancewrkReq = new AmbulanceWorkRequest();
-                                          ambulancewrkReq.setPatient(emergencyPatientReq.getPatient());
-                                          ambulancewrkReq.setEmergencyDoctor(emergencyPatientReq.getEmergencyDoctor());
-                                          ambulancewrkReq.setRequestdate(new Date());
-                                          ambulancewrkReq.setSenderNetwork(network);
-                                          ambulancewrkReq.setSenderOrganization(organization);
-                                          ambulancewrkReq.setRecieverOrganization(ambulanceOrg);
-                                          ambulancewrkReq.setCriticality(emergencyPatientReq.getCriticality());
-                                          ambulancewrkReq.setStatus("Ambulace Requested");
-                                          emergencyPatientReq.setAmbulance(ambulance);
-                                          ambulancewrkReq.setReceiver(ua);
-                                          ambulancewrkReq.setAmbulance(ambulance);
-                                          ambulancewrkReq.setEmergencyPatientRequest(emergencyPatientReq);
-                                          ua.getWorkQueue().addWorkRequest(ambulancewrkReq);
-                                            emergencyPatientReq.setStatus("Assigned Ambulance");
+                                          AmbulanceWorkRequestService ambulancewrkReq = new AmbulanceWorkRequestService();
+                                          ambulancewrkReq.setPat(emergencyPatientReq.getPat());
+                                          ambulancewrkReq.setEmerDoctor(emergencyPatientReq.getEmerDoctor());
+                                          ambulancewrkReq.setReqDate(new Date());
+                                          ambulancewrkReq.setSenderNet(network);
+                                          ambulancewrkReq.setSenderOrg(organization);
+                                          ambulancewrkReq.setRecieverOrg(ambulanceOrg);
+                                          ambulancewrkReq.setCritical(emergencyPatientReq.getCritical());
+                                          ambulancewrkReq.setStat("Ambulace Requested");
+                                          emergencyPatientReq.setAmb(ambulance);
+                                          ambulancewrkReq.setReceivr(ua);
+                                          ambulancewrkReq.setAmb(ambulance);
+                                          ambulancewrkReq.setEmergencyPatientReq(emergencyPatientReq);
+                                          ua.getWorkkQueue().addWorkRequest(ambulancewrkReq);
+                                            emergencyPatientReq.setStat("Assigned Ambulance");
                                              populateTable();
                                           return;
                                       }
@@ -747,75 +747,75 @@ public class EmergencyPatientAdminWorkArea extends javax.swing.JPanel {
              }
        }
       }
-    }//GEN-LAST:event_btnAmbulanceActionPerformed
+    }//GEN-LAST:event_btnAmbActionPerformed
 
-    private void WorkRequestTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_WorkRequestTableMouseClicked
+    private void WorkReqTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_WorkReqTableMouseClicked
         // TODO add your handling code here:
-         int selectedReq = WorkRequestTable.getSelectedRow();
+         int selectedReq = WorkReqTable.getSelectedRow();
         if(selectedReq >= 0){
-        EmergencyPatientRequest selectedWorkReq = (EmergencyPatientRequest)WorkRequestTable.getValueAt(selectedReq, 0);
+        EmergencyPatientRequestService selectedWorkReq = (EmergencyPatientRequestService)WorkReqTable.getValueAt(selectedReq, 0);
         populateChildTable(selectedWorkReq);
         }
-    }//GEN-LAST:event_WorkRequestTableMouseClicked
+    }//GEN-LAST:event_WorkReqTableMouseClicked
 
-    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+    private void jbtnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnClearActionPerformed
         // TODO add your handling code here:
-         DefaultTableModel model = (DefaultTableModel) tblChildReq.getModel();
+         DefaultTableModel model = (DefaultTableModel) tblChildRequest.getModel();
         model.setRowCount(0);
-    }//GEN-LAST:event_btnClearActionPerformed
+    }//GEN-LAST:event_jbtnClearActionPerformed
 
     private void btnRefreshTblActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshTblActionPerformed
         // TODO add your handling code here:
          populateTable();
-         DefaultTableModel model = (DefaultTableModel) tblChildReq.getModel();
+         DefaultTableModel model = (DefaultTableModel) tblChildRequest.getModel();
         model.setRowCount(0);
     }//GEN-LAST:event_btnRefreshTblActionPerformed
 
-    public void populateChildTable(EmergencyPatientRequest selectedWorkReq)
+    public void populateChildTable(EmergencyPatientRequestService selectedWorkReq)
     {
         
-         DefaultTableModel model = (DefaultTableModel) tblChildReq.getModel();
+         DefaultTableModel model = (DefaultTableModel) tblChildRequest.getModel();
         model.setRowCount(0);
-        Organization doctorOrg = null;
-         for(Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList())
+        OrganizationService doctorOrg = null;
+         for(Venture enterprise : network.getVentureDirectory().getVentureList())
         {
-            for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
-               if (organization instanceof DoctorOrganization ) {
+            for (OrganizationService organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+               if (organization instanceof DoctorOrganizationService ) {
 
                    doctorOrg = organization;
                    break;
                }
            }
         }
-        for(Doctor doc : system.getDoctroDirectory().getDoctorList())
+        for(DoctorService doc : system.getDoctroDirectory().getDoctorrList())
             {
-              if(selectedWorkReq.getEmergencyDoctor() != null)
+              if(selectedWorkReq.getEmerDoctor() != null)
                {
-               if(doc.getDocName().equals(selectedWorkReq.getEmergencyDoctor().getDocName()))
+               if(doc.getDoctorName().equals(selectedWorkReq.getEmerDoctor().getDoctorName()))
                {
-                   for(UserAccount ua : doctorOrg.getUserAccountDirectory().getUserAccountList())
+                   for(UserAccountService ua : doctorOrg.getUserAccounttDirectory().getUserAccounttList())
                    {
                       
-                            if(ua.getEmployee().getName().equals(selectedWorkReq.getEmergencyDoctor().getDocName()))
+                            if(ua.getEmployeee().getName().equals(selectedWorkReq.getEmerDoctor().getDoctorName()))
                             {
-                                 for (WorkRequest wr : ua.getWorkQueue().getWorkRequestList()) {
-                                     if(wr instanceof DoctorWorkRequest) {
+                                 for (WorkRequestService wr : ua.getWorkkQueue().getWorkRequestList()) {
+                                     if(wr instanceof DoctorWorkRequestService) {
 
-                                         DoctorWorkRequest epr = (DoctorWorkRequest)wr;
-                                         System.out.println("EMergency Reque id for doc ="+epr.getEmergencyPatientRequest());
-                                         if(epr.getEmergencyPatientRequest().equals(selectedWorkReq))
+                                         DoctorWorkRequestService epr = (DoctorWorkRequestService)wr;
+                                         System.out.println("EMergency Reque id for doc ="+epr.getEmergencyPatRequest());
+                                         if(epr.getEmergencyPatRequest().equals(selectedWorkReq))
                                          {
 
                                             Object[] row = new Object[model.getColumnCount()];
                                             row[0] = epr;
-                                            row[1] = epr.getPatient().getPatientName();//epr.getSender().getEmployee().getName();
-                                            row[2] = epr.getPatient().getPatientName();
-                                            row[3] = epr.getPatient().getAddress();
-                                            row[4] = epr.getCriticality();
-                                            row[5] = epr.getStatus();// epr.getRequestdate();
-                                            row[6] = epr.getRequestDate();
-                                            row[7] = epr.getPatient().getPhoneNumber();
-                                            row[8] = epr.getEmergencyDoctor() != null ? epr.getEmergencyDoctor().getDocName() : "" ;
+                                            row[1] = epr.getPat().getPatName();//epr.getSender().getEmployee().getName();
+                                            row[2] = epr.getPat().getPatName();
+                                            row[3] = epr.getPat().getAdd();
+                                            row[4] = epr.getCritical();
+                                            row[5] = epr.getStat();// epr.getRequestdate();
+                                            row[6] = epr.getReqDate();
+                                            row[7] = epr.getPat().getPhoneNo();
+                                            row[8] = epr.getEmerDoctor() != null ? epr.getEmerDoctor().getDoctorName() : "" ;
                                             //row[9] = epr.get.getAmbulance();
                                             model.addRow(row);
                                          }
@@ -831,11 +831,11 @@ public class EmergencyPatientAdminWorkArea extends javax.swing.JPanel {
             }
         
         
-         Organization ambulanceOrg = null;
-         for(Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList())
+         OrganizationService ambulanceOrg = null;
+         for(Venture enterprise : network.getVentureDirectory().getVentureList())
         {
-            for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
-               if (organization instanceof AmbulanceOrganization ) {
+            for (OrganizationService organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+               if (organization instanceof AmbulanceOrganizationService ) {
 
                    ambulanceOrg = organization;
                    break;
@@ -843,36 +843,36 @@ public class EmergencyPatientAdminWorkArea extends javax.swing.JPanel {
            }
         }
          
-          for(Ambulance amb : system.getAmbulanceDirectory().getambulanceList())
+          for(AmbulanceService amb : system.getAmbulanceDirectory().getambulanceList())
             {
-                if(selectedWorkReq.getAmbulance() != null)
+                if(selectedWorkReq.getAmb() != null)
              {
-               if(amb.getAmbulanceNumber().equals(selectedWorkReq.getAmbulance().getAmbulanceNumber()))
+               if(amb.getAmbulanceeNumber().equals(selectedWorkReq.getAmb().getAmbulanceeNumber()))
                {
-                   for(UserAccount ua : ambulanceOrg.getUserAccountDirectory().getUserAccountList())
+                   for(UserAccountService ua : ambulanceOrg.getUserAccounttDirectory().getUserAccounttList())
                    {
                        
-                            if(ua.getEmployee().getName().equals(selectedWorkReq.getAmbulance().getDriverName()))
+                            if(ua.getEmployeee().getName().equals(selectedWorkReq.getAmb().getDriverrName()))
                             {
-                                 for (WorkRequest wr : ua.getWorkQueue().getWorkRequestList()) {
-                                     if(wr instanceof AmbulanceWorkRequest) {
+                                 for (WorkRequestService wr : ua.getWorkkQueue().getWorkRequestList()) {
+                                     if(wr instanceof AmbulanceWorkRequestService) {
 
-                                         AmbulanceWorkRequest epr = (AmbulanceWorkRequest)wr;
+                                         AmbulanceWorkRequestService epr = (AmbulanceWorkRequestService)wr;
                                          
-                                         if(epr.getEmergencyPatientRequest().equals(selectedWorkReq))
+                                         if(epr.getEmergencyPatientReq().equals(selectedWorkReq))
                                          {
 
                                             Object[] row = new Object[model.getColumnCount()];
                                             row[0] = epr;
-                                            row[1] = epr.getPatient().getPatientName();//epr.getSender().getEmployee().getName();
-                                            row[2] = epr.getPatient().getPatientName();
-                                            row[3] = epr.getPatient().getAddress();
-                                            row[4] = epr.getCriticality();
-                                            row[5] = epr.getStatus();// epr.getRequestdate();
-                                            row[6] = epr.getRequestDate();
-                                            row[7] = epr.getPatient().getPhoneNumber();
+                                            row[1] = epr.getPat().getPatName();//epr.getSender().getEmployee().getName();
+                                            row[2] = epr.getPat().getPatName();
+                                            row[3] = epr.getPat().getAdd();
+                                            row[4] = epr.getCritical();
+                                            row[5] = epr.getStat();// epr.getRequestdate();
+                                            row[6] = epr.getReqDate();
+                                            row[7] = epr.getPat().getPhoneNo();
                                             row[8] = "" ;
-                                            row[9] = epr.getAmbulance() != null ? epr.getAmbulance().getAmbulanceNumber() : "";
+                                            row[9] = epr.getAmb() != null ? epr.getAmb().getAmbulanceeNumber() : "";
                                             model.addRow(row);
                                          }
                                      }
@@ -891,19 +891,19 @@ public class EmergencyPatientAdminWorkArea extends javax.swing.JPanel {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable WorkRequestTable;
-    private javax.swing.JButton btnAcknowledge;
-    private javax.swing.JButton btnAmbulance;
-    private javax.swing.JButton btnAssigDoc;
-    private javax.swing.JButton btnClear;
-    private javax.swing.JButton btnCompleteRequest;
-    private javax.swing.JButton btnProcess;
+    private javax.swing.JTable WorkReqTable;
+    private javax.swing.JButton btnAck;
+    private javax.swing.JButton btnAmb;
+    private javax.swing.JButton btnAssigDoctor;
+    private javax.swing.JButton btnCompleteReq;
+    private javax.swing.JButton btnProc;
     private javax.swing.JButton btnRefreshTbl;
-    private javax.swing.JButton btnReject;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton btnRej;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable tblChildReq;
+    private javax.swing.JButton jbtnClear;
+    private javax.swing.JLabel jkLabel1;
+    private javax.swing.JLabel jkLabel2;
+    private javax.swing.JTable tblChildRequest;
     // End of variables declaration//GEN-END:variables
 }
