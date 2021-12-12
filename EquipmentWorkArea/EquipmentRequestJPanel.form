@@ -21,19 +21,19 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="300" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="btnBack" min="-2" pref="114" max="-2" attributes="0"/>
-                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel5" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jbtnBack" min="-2" pref="114" max="-2" attributes="0"/>
+                          <Component id="jkLabel4" min="-2" max="-2" attributes="0"/>
+                          <Component id="jkLabel5" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jkLabel6" min="-2" max="-2" attributes="0"/>
+                          <Component id="jkLabel3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="txtquant" linkSize="1" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtEquipCost" linkSize="1" alignment="0" max="32767" attributes="0"/>
-                          <Component id="equipJComboBox" linkSize="1" alignment="0" pref="179" max="32767" attributes="0"/>
-                          <Component id="txtTotalCost" linkSize="1" max="32767" attributes="0"/>
-                          <Component id="btnBillingReq" linkSize="1" max="32767" attributes="0"/>
+                          <Component id="txtquan" linkSize="1" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jtxtEquipCost" linkSize="1" alignment="0" max="32767" attributes="0"/>
+                          <Component id="equipJCombBox" linkSize="1" alignment="0" pref="179" max="32767" attributes="0"/>
+                          <Component id="txtTotCost" linkSize="1" max="32767" attributes="0"/>
+                          <Component id="btnBilliReq" linkSize="1" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -42,7 +42,7 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="300" max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" pref="348" max="-2" attributes="0"/>
+                      <Component id="jkLabel1" min="-2" pref="348" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="77" max="32767" attributes="0"/>
@@ -53,33 +53,33 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" pref="40" max="-2" attributes="0"/>
+              <Component id="jkLabel1" min="-2" pref="40" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Component id="jScrollPane2" min="-2" pref="115" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="equipJComboBox" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jkLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="equipJCombBox" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtEquipCost" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jkLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jtxtEquipCost" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtquant" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jkLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtquan" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtTotalCost" linkSize="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="jkLabel5" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtTotCost" linkSize="2" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnBillingReq" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnBack" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnBilliReq" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jbtnBack" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="300" max="32767" attributes="0"/>
           </Group>
@@ -87,7 +87,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="jkLabel1">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Lucida Grande" size="24" style="1"/>
@@ -96,40 +96,40 @@
         <Property name="text" type="java.lang.String" value="EQUIPMENT REQUEST PAGE"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel3">
+    <Component class="javax.swing.JLabel" name="jkLabel3">
       <Properties>
         <Property name="text" type="java.lang.String" value="Equipment Price :"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtEquipCost">
+    <Component class="javax.swing.JTextField" name="jtxtEquipCost">
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel4">
+    <Component class="javax.swing.JLabel" name="jkLabel4">
       <Properties>
         <Property name="text" type="java.lang.String" value="Equipment Qunatity :"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtquant">
+    <Component class="javax.swing.JTextField" name="txtquan">
       <Events>
-        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtquantFocusLost"/>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtquantActionPerformed"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtquanFocusLost"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtquanActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel5">
+    <Component class="javax.swing.JLabel" name="jkLabel5">
       <Properties>
         <Property name="text" type="java.lang.String" value="Total Cost :"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtTotalCost">
+    <Component class="javax.swing.JTextField" name="txtTotCost">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnBillingReq">
+    <Component class="javax.swing.JButton" name="btnBilliReq">
       <Properties>
         <Property name="text" type="java.lang.String" value="Request for Fund"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBillingReqActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBilliReqActionPerformed"/>
       </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane2">
@@ -139,7 +139,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="tblEquipReq">
+        <Component class="javax.swing.JTable" name="jtblEquipReq">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="10" rowCount="4">
@@ -216,12 +216,12 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="jLabel6">
+    <Component class="javax.swing.JLabel" name="jkLabel6">
       <Properties>
         <Property name="text" type="java.lang.String" value="Select Equipment :"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="equipJComboBox">
+    <Component class="javax.swing.JComboBox" name="equipJCombBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">
@@ -233,15 +233,15 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="equipJComboBoxActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="equipJCombBoxActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnBack">
+    <Component class="javax.swing.JButton" name="jbtnBack">
       <Properties>
         <Property name="text" type="java.lang.String" value="&lt;&lt; Back"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBackActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnBackActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
