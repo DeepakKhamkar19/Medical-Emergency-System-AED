@@ -5,16 +5,16 @@
  */
 package userinterface.DoctorWorkArea;
 
-import Business.EcoSystem;
-import Business.Enterprise.Enterprise;
-import Business.Network.Network;
-import Business.Organization.DoctorOrganization;
-import Business.Organization.Organization;
-import Business.UserAccount.UserAccount;
+import Project.EcoSystem;
+import Project.Venture.Venture;
+import Project.Network.NetworkService;
+import Project.Organization.DoctorOrganizationService;
+import Project.Organization.OrganizationService;
+import Project.UserAccount.UserAccountService;
 import userinterface.Ambulance.*;
-import Business.WorkQueue.EmergencyPatientRequest;
-import Business.WorkQueue.DoctorWorkRequest;
-import Business.WorkQueue.WorkRequest;
+import Project.WorkQueue.EmergencyPatientRequestService;
+import Project.WorkQueue.DoctorWorkRequestService;
+import Project.WorkQueue.WorkRequestService;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -29,14 +29,14 @@ public class EmergencyDoctorWorkAreaJPanel extends javax.swing.JPanel {
      * Creates new form EmergencyAmbulanceUserJPanel
      */
     JPanel userProcessContainer;
-    UserAccount account;
-    Organization organization;
-    Enterprise enterprise;
-    Network network;
+    UserAccountService account;
+    OrganizationService organization;
+    Venture enterprise;
+    NetworkService network;
     EcoSystem business;
     
     public EmergencyDoctorWorkAreaJPanel(JPanel userProcessContainer, 
-            UserAccount account,Organization organization,Enterprise enterprise,Network network,
+            UserAccountService account,OrganizationService organization,Venture enterprise,NetworkService network,
             EcoSystem business) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
@@ -52,42 +52,42 @@ public class EmergencyDoctorWorkAreaJPanel extends javax.swing.JPanel {
     
     public void populateTable()
     {
-        DefaultTableModel model = (DefaultTableModel) WorkRequestTable.getModel();
+        DefaultTableModel model = (DefaultTableModel) WorkReqTable.getModel();
         model.setRowCount(0);
-        System.out.println("Total workreq "+account.getWorkQueue().getWorkRequestList().size());
+        System.out.println("Total workreq "+account.getWorkkQueue().getWorkRequestList().size());
         
-         Organization doctorOrg = null;
-                     for(Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList())
+         OrganizationService doctorOrg = null;
+                     for(Venture enterprise : network.getVentureDirectory().getVentureList())
                     {
-                        for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
-                           if (organization instanceof DoctorOrganization ) {
+                        for (OrganizationService organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                           if (organization instanceof DoctorOrganizationService ) {
 
                                doctorOrg = organization;
                                break;
                            }
                        }
                     }
-          for(UserAccount ua : doctorOrg.getUserAccountDirectory().getUserAccountList())
+          for(UserAccountService ua : doctorOrg.getUserAccounttDirectory().getUserAccounttList())
                                {
-        for (WorkRequest wr : ua.getWorkQueue().getWorkRequestList()) {
-            System.out.println("ua" + ua.getUsername());
-            System.out.println("account" +account.getUsername() );
+        for (WorkRequestService wr : ua.getWorkkQueue().getWorkRequestList()) {
+            System.out.println("ua" + ua.getUserName());
+            System.out.println("account" +account.getUserName() );
                
-            if(ua.getUsername().equals(account.getUsername()))
+            if(ua.getUserName().equals(account.getUserName()))
             {
-            if(wr instanceof DoctorWorkRequest) {
+            if(wr instanceof DoctorWorkRequestService) {
                 System.out.println(wr);
-                DoctorWorkRequest epr = (DoctorWorkRequest)wr;
+                DoctorWorkRequestService epr = (DoctorWorkRequestService)wr;
                   System.out.println("epr" + wr);
                 Object[] row = new Object[model.getColumnCount()];
                 row[0] = epr;
-                row[1] = epr.getPatient().getPatientName();//epr.getSender().getEmployee().getName();
-                row[2] = epr.getPatient().getPatientName();
-                row[3] = epr.getPatient().getAddress();
-                row[4] = epr.getCriticality();
-                row[5] = epr.getStatus();// epr.getRequestdate();
-                row[6] = epr.getRequestDate();
-                row[7] = epr.getPatient().getPhoneNumber();
+                row[1] = epr.getPat().getPatName();//epr.getSender().getEmployee().getName();
+                row[2] = epr.getPat().getPatName();
+                row[3] = epr.getPat().getAdd();
+                row[4] = epr.getCritical();
+                row[5] = epr.getStat();// epr.getRequestdate();
+                row[6] = epr.getReqDate();
+                row[7] = epr.getPat().getPhoneNo();
                 //row[8] = "" ;
                // row[9] = "";//epr.getEmergencyDoctor() != null ? epr.getEmergencyDoctor().;
                 model.addRow(row);
@@ -109,18 +109,18 @@ public class EmergencyDoctorWorkAreaJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        WorkRequestTable = new javax.swing.JTable();
-        btnAcknowledge = new javax.swing.JButton();
-        btnReject = new javax.swing.JButton();
-        btnCompleteRequest = new javax.swing.JButton();
-        btnProcess = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        WorkReqTable = new javax.swing.JTable();
+        btnAck = new javax.swing.JButton();
+        btnRej = new javax.swing.JButton();
+        btnCompleteReq = new javax.swing.JButton();
+        btnProc = new javax.swing.JButton();
+        jkLabel1 = new javax.swing.JLabel();
+        jkLabel2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        WorkRequestTable.setModel(new javax.swing.table.DefaultTableModel(
+        WorkReqTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
@@ -131,178 +131,178 @@ public class EmergencyDoctorWorkAreaJPanel extends javax.swing.JPanel {
                 "RequestId", "Sender", "Patient Name", "Patient Address", "Criticality", "Status", "Request Date", "Phone Number"
             }
         ));
-        jScrollPane1.setViewportView(WorkRequestTable);
+        jScrollPane1.setViewportView(WorkReqTable);
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 81, 778, 169));
 
-        btnAcknowledge.setText("Accept Request");
-        btnAcknowledge.addActionListener(new java.awt.event.ActionListener() {
+        btnAck.setText("Accept Request");
+        btnAck.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAcknowledgeActionPerformed(evt);
+                btnAckActionPerformed(evt);
             }
         });
-        add(btnAcknowledge, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 280, 150, -1));
+        add(btnAck, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 280, 150, -1));
 
-        btnReject.setText("Reject Request");
-        btnReject.addActionListener(new java.awt.event.ActionListener() {
+        btnRej.setText("Reject Request");
+        btnRej.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRejectActionPerformed(evt);
+                btnRejActionPerformed(evt);
             }
         });
-        add(btnReject, new org.netbeans.lib.awtextra.AbsoluteConstraints(239, 280, 150, -1));
+        add(btnRej, new org.netbeans.lib.awtextra.AbsoluteConstraints(239, 280, 150, -1));
 
-        btnCompleteRequest.setText("Complete Request");
-        btnCompleteRequest.addActionListener(new java.awt.event.ActionListener() {
+        btnCompleteReq.setText("Complete Request");
+        btnCompleteReq.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCompleteRequestActionPerformed(evt);
+                btnCompleteReqActionPerformed(evt);
             }
         });
-        add(btnCompleteRequest, new org.netbeans.lib.awtextra.AbsoluteConstraints(619, 280, 150, -1));
+        add(btnCompleteReq, new org.netbeans.lib.awtextra.AbsoluteConstraints(619, 280, 150, -1));
 
-        btnProcess.setText("Process Request");
-        btnProcess.addActionListener(new java.awt.event.ActionListener() {
+        btnProc.setText("Process Request");
+        btnProc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnProcessActionPerformed(evt);
+                btnProcActionPerformed(evt);
             }
         });
-        add(btnProcess, new org.netbeans.lib.awtextra.AbsoluteConstraints(429, 280, 150, -1));
+        add(btnProc, new org.netbeans.lib.awtextra.AbsoluteConstraints(429, 280, 150, -1));
 
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("EMERGENCY DOCTOR WORK AREA");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 19, 857, 32));
+        jkLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
+        jkLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jkLabel1.setText("EMERGENCY DOCTOR WORK AREA");
+        add(jkLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 19, 857, 32));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/doctor2.jpg"))); // NOI18N
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-5, 0, 880, 600));
+        jkLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/doctor2.jpg"))); // NOI18N
+        add(jkLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-5, 0, 880, 600));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAcknowledgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcknowledgeActionPerformed
-        int count = WorkRequestTable.getSelectedRowCount();
+    private void btnAckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAckActionPerformed
+        int count = WorkReqTable.getSelectedRowCount();
         if(count != 1) {
             JOptionPane.showMessageDialog(null, "Select a request");
         }else {
-            int selectedRow = WorkRequestTable.getSelectedRow();
-            DoctorWorkRequest emerReq = (DoctorWorkRequest) WorkRequestTable.getValueAt(selectedRow, 0);
-            if(emerReq.getStatus().equals("Rejected")) {
+            int selectedRow = WorkReqTable.getSelectedRow();
+            DoctorWorkRequestService emerReq = (DoctorWorkRequestService) WorkReqTable.getValueAt(selectedRow, 0);
+            if(emerReq.getStat().equals("Rejected")) {
                 JOptionPane.showMessageDialog(null, "Request is already Rejected");
-            }else if(emerReq.getStatus().equals("Accepted")) {
+            }else if(emerReq.getStat().equals("Accepted")) {
                 JOptionPane.showMessageDialog(null, "Request is already Accepted");
-            }else if(emerReq.getStatus().equals("Processing")) {
+            }else if(emerReq.getStat().equals("Processing")) {
                 JOptionPane.showMessageDialog(null, "Request is already Processing");
-            }else if(emerReq.getStatus().equals("Completed")) {
+            }else if(emerReq.getStat().equals("Completed")) {
                 JOptionPane.showMessageDialog(null, "Request is already Completed");
-            }else if(emerReq.getStatus().equals("Cancelled")) {
+            }else if(emerReq.getStat().equals("Cancelled")) {
                 JOptionPane.showMessageDialog(null, "Request is already cancelled by sender");
             }else {
                 String msg = JOptionPane.showInputDialog("Additional Message");
                   if(msg != null)
                 {
-                emerReq.setStatus("Accepted");
-                emerReq.setMessage(msg);
+                emerReq.setStat("Accepted");
+                emerReq.setMes(msg);
                 
                 }
                populateTable();
             }
             //emerReq.setStatus("Accepted");
         }
-    }//GEN-LAST:event_btnAcknowledgeActionPerformed
+    }//GEN-LAST:event_btnAckActionPerformed
 
-    private void btnRejectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRejectActionPerformed
-        int count = WorkRequestTable.getSelectedRowCount();
+    private void btnRejActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRejActionPerformed
+        int count = WorkReqTable.getSelectedRowCount();
         if(count != 1) {
             JOptionPane.showMessageDialog(null, "Select a request");
         }else {
-            int selectedRow = WorkRequestTable.getSelectedRow();
-            DoctorWorkRequest emerReq = (DoctorWorkRequest) WorkRequestTable.getValueAt(selectedRow, 0);
-            if(emerReq.getStatus().equals("Rejected")) {
+            int selectedRow = WorkReqTable.getSelectedRow();
+            DoctorWorkRequestService emerReq = (DoctorWorkRequestService) WorkReqTable.getValueAt(selectedRow, 0);
+            if(emerReq.getStat().equals("Rejected")) {
                 JOptionPane.showMessageDialog(null, "Request is already Rejected");
-            }else if(emerReq.getStatus().equals("Accepted")) {
+            }else if(emerReq.getStat().equals("Accepted")) {
                 JOptionPane.showMessageDialog(null, "Request is already Accepted");
-            }else if(emerReq.getStatus().equals("Processing")) {
+            }else if(emerReq.getStat().equals("Processing")) {
                 JOptionPane.showMessageDialog(null, "Request is already Accepted and Processing");
-            }else if(emerReq.getStatus().equals("Completed")) {
+            }else if(emerReq.getStat().equals("Completed")) {
                 JOptionPane.showMessageDialog(null, "Request is already Completed");
-            }else if(emerReq.getStatus().equals("Cancelled")) {
+            }else if(emerReq.getStat().equals("Cancelled")) {
                 JOptionPane.showMessageDialog(null, "Request is already cancelled by sender");
             }else {
                 String msg = JOptionPane.showInputDialog("Additional Message");
                   if(msg != null)
                 {
-                emerReq.setStatus("Rejected");
-                emerReq.setMessage(msg);
+                emerReq.setStat("Rejected");
+                emerReq.setMes(msg);
                 }
                 populateTable();
             }
         }
-    }//GEN-LAST:event_btnRejectActionPerformed
+    }//GEN-LAST:event_btnRejActionPerformed
 
-    private void btnCompleteRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompleteRequestActionPerformed
-        int count = WorkRequestTable.getSelectedRowCount();
+    private void btnCompleteReqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompleteReqActionPerformed
+        int count = WorkReqTable.getSelectedRowCount();
         if(count != 1) {
             JOptionPane.showMessageDialog(null, "Select a request");
         }else {
-            int selectedRow = WorkRequestTable.getSelectedRow();
-            DoctorWorkRequest emerReq = (DoctorWorkRequest) WorkRequestTable.getValueAt(selectedRow, 0);
-            if(emerReq.getStatus().equals("Rejected")) {
+            int selectedRow = WorkReqTable.getSelectedRow();
+            DoctorWorkRequestService emerReq = (DoctorWorkRequestService) WorkReqTable.getValueAt(selectedRow, 0);
+            if(emerReq.getStat().equals("Rejected")) {
                 JOptionPane.showMessageDialog(null, "Request is already Rejected");
-            }else if(emerReq.getStatus().equals("Accepted")) {
+            }else if(emerReq.getStat().equals("Accepted")) {
                 JOptionPane.showMessageDialog(null, "Request should be in processing state before marking complete");
-            }else if(emerReq.getStatus().equals("Completed")) {
+            }else if(emerReq.getStat().equals("Completed")) {
                 JOptionPane.showMessageDialog(null, "Request is already Completed");
-            }else if(emerReq.getStatus().equals("Cancelled")) {
+            }else if(emerReq.getStat().equals("Cancelled")) {
                 JOptionPane.showMessageDialog(null, "Request is already cancelled by sender");
-            }else if(emerReq.getStatus().equals("Requested")) {
+            }else if(emerReq.getStat().equals("Requested")) {
                 JOptionPane.showMessageDialog(null, "Request is not yet Accepted");
             }else {
                 String msg = JOptionPane.showInputDialog("Additional Message");
                   if(msg != null)
                 {
-                emerReq.setStatus("Completed");
-                emerReq.setMessage(msg);
+                emerReq.setStat("Completed");
+                emerReq.setMes(msg);
                 }
                 populateTable();
             }
         }
-    }//GEN-LAST:event_btnCompleteRequestActionPerformed
+    }//GEN-LAST:event_btnCompleteReqActionPerformed
 
-    private void btnProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcessActionPerformed
-        int count = WorkRequestTable.getSelectedRowCount();
+    private void btnProcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcActionPerformed
+        int count = WorkReqTable.getSelectedRowCount();
         if (count != 1) {
             JOptionPane.showMessageDialog(null, "Select one row", "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
-            int selectedRow = WorkRequestTable.getSelectedRow();
-            DoctorWorkRequest emerReq = (DoctorWorkRequest) WorkRequestTable.getValueAt(selectedRow, 0);
-            if(emerReq.getStatus().equals("Cancelled")) {
+            int selectedRow = WorkReqTable.getSelectedRow();
+            DoctorWorkRequestService emerReq = (DoctorWorkRequestService) WorkReqTable.getValueAt(selectedRow, 0);
+            if(emerReq.getStat().equals("Cancelled")) {
                 JOptionPane.showMessageDialog(null, "Request is already cancelled by sender");
-            }else if(emerReq.getStatus().equals("Processing")){
+            }else if(emerReq.getStat().equals("Processing")){
                 JOptionPane.showMessageDialog(null, "Request is already Processing");
-            }else if(emerReq.getStatus().equals("Rejected")){
+            }else if(emerReq.getStat().equals("Rejected")){
                 JOptionPane.showMessageDialog(null, "Request is already Rejected");
-            }else if(emerReq.getStatus().equals("Completed")){
+            }else if(emerReq.getStat().equals("Completed")){
                 JOptionPane.showMessageDialog(null, "Request is already Completed");
-            }else if(emerReq.getStatus().equals("Requested")) {
+            }else if(emerReq.getStat().equals("Requested")) {
                 JOptionPane.showMessageDialog(null, "Request is not yet Accepted");
             }else {
                 String msg = JOptionPane.showInputDialog("Additional Message");
                   if(msg != null)
                 {
-                emerReq.setStatus("Processing");
-                emerReq.setMessage(msg);
+                emerReq.setStat("Processing");
+                emerReq.setMes(msg);
                 }
                 populateTable();
             }
         }
-    }//GEN-LAST:event_btnProcessActionPerformed
+    }//GEN-LAST:event_btnProcActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable WorkRequestTable;
-    private javax.swing.JButton btnAcknowledge;
-    private javax.swing.JButton btnCompleteRequest;
-    private javax.swing.JButton btnProcess;
-    private javax.swing.JButton btnReject;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JTable WorkReqTable;
+    private javax.swing.JButton btnAck;
+    private javax.swing.JButton btnCompleteReq;
+    private javax.swing.JButton btnProc;
+    private javax.swing.JButton btnRej;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jkLabel1;
+    private javax.swing.JLabel jkLabel2;
     // End of variables declaration//GEN-END:variables
 }

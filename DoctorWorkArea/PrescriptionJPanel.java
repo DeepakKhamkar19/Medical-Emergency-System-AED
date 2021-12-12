@@ -4,23 +4,21 @@
  * and open the template in the editor.
  */
 package userinterface.DoctorWorkArea;
-import Business.Medicine.Prescription;
-import Business.Medicine.PrescriptionList;
-import Business.EcoSystem;
-import Business.Enterprise.Enterprise;
-import Business.MedicalEmployment.Doctor;
-import Business.MedicalEmployment.Patient;
-import Business.Medicine.Medicine;
-import Business.Network.Network;
-import Business.Organization.DoctorOrganization;
-import Business.Organization.MedicineOrganization;
-
-import Business.Organization.Organization;
-/////import Business.Organization.PharmacyOrganization;
-import Business.UserAccount.UserAccount;
-import Business.WorkQueue.DoctorWorkRequest;
-//import Business.WorkQueue.PharmacyWorkRequest;
-import Business.WorkQueue.WorkRequest;
+import Project.Medicine.PrescriptionService;
+import Project.Medicine.PrescriiptionnList;
+import Project.EcoSystem;
+import Project.Venture.Venture;
+import Project.MedicalEmployment.DoctorService;
+import Project.MedicalEmployment.PatientDetails;
+import Project.Medicine.MedicineService;
+import Project.Network.NetworkService;
+import Project.Organization.DoctorOrganizationService;
+import Project.Organization.MedicineOrganizationService;
+import Project.Organization.OrganizationService;
+/////import Business.OrganizationService.PharmacyOrganization;
+import Project.UserAccount.UserAccountService;
+import Project.WorkQueue.DoctorWorkRequestService;
+import Project.WorkQueue.WorkRequestService;
 import java.awt.CardLayout;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -42,30 +40,30 @@ import javax.swing.table.DefaultTableModel;
 import org.apache.log4j.Logger;
 /**
  *
- * @author Sandeep
+ * @author Dell
  */
 public class PrescriptionJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form PrescriptionJPanel
      */
-      private Organization organization;
-    private Enterprise enterprise;
+      private OrganizationService organization;
+    private Venture enterprise;
 
-    private UserAccount userAccount;
+    private UserAccountService userAccount;
     private JPanel userProcessContainer;
-    //private Prescription prescription;
-    private DoctorWorkRequest docreq;
-    private Network network;
+    //private PrescriptionService prescription;
+    private DoctorWorkRequestService docreq;
+    private NetworkService network;
     private EcoSystem system;
     private static Logger log = Logger.getLogger(PrescriptionJPanel.class);
     private static final String CLASS_NAME = PrescriptionJPanel.class.getName();
     private static final String filePath = "./prescription data.txt";
-    private Patient patient;
-    private Doctor doctor;
-    public PrescriptionJPanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise, 
-            Organization organization, 
-            EcoSystem system, Network network,Patient patient,Doctor doctor) {
+    private PatientDetails patient;
+    private DoctorService doctor;
+    public PrescriptionJPanel(JPanel userProcessContainer, UserAccountService account, Venture enterprise, 
+            OrganizationService organization, 
+            EcoSystem system, NetworkService network,PatientDetails patient,DoctorService doctor) {
         initComponents();
          this.doctor = doctor;
         this.userProcessContainer = userProcessContainer;
@@ -77,7 +75,7 @@ public class PrescriptionJPanel extends javax.swing.JPanel {
         this.patient = patient;
         
         //populateWorkRequestTable();
-        DateChooser.setMinSelectableDate(new Date());
+        jDateChooser.setMinSelectableDate(new Date());
         populatefields();
         populateMedicineCmb();
         //populateWorkRequestTable();
@@ -85,25 +83,25 @@ public class PrescriptionJPanel extends javax.swing.JPanel {
     
     public void populatefields()
     {
-        txtName.setText(patient.getPatientName());
-        txtAge.setText(String.valueOf(patient.getAge()));
-        txtGender.setText(patient.getGender());
+        jtxtName.setText(patient.getPatName());
+        jtxtAge.setText(String.valueOf(patient.getPatAge()));
+        jtxtGender.setText(patient.getPatGender());
     }
 
     public void populateMedicineCmb()
     {
-        cbMedicine.removeAllItems();
-        cbMedicine.addItem("Select");
-        for(Enterprise enter : network.getEnterpriseDirectory().getEnterpriseList())
+        jcbMedicine.removeAllItems();
+        jcbMedicine.addItem("Select");
+        for(Venture enter : network.getVentureDirectory().getVentureList())
         {
-            for(Organization org : enter.getOrganizationDirectory().getOrganizationList())
+            for(OrganizationService org : enter.getOrganizationDirectory().getOrganizationList())
             {
-                if(org instanceof MedicineOrganization)
+                if(org instanceof MedicineOrganizationService)
                 {
-                    MedicineOrganization medOrg = (MedicineOrganization) org;
-                    for(Medicine med : medOrg.getMedList())
+                    MedicineOrganizationService medOrg = (MedicineOrganizationService) org;
+                    for(MedicineService med : medOrg.getMedList())
                     {
-                        cbMedicine.addItem(med.getMedicineName());
+                        jcbMedicine.addItem(med.getMedName());
                     }
                     
                 }
@@ -121,79 +119,79 @@ public class PrescriptionJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        txtName = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        txtAge = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        txtGender = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        cbMedicine = new javax.swing.JComboBox<>();
-        jLabel6 = new javax.swing.JLabel();
-        noofTimesTxt = new javax.swing.JSpinner();
-        jLabel7 = new javax.swing.JLabel();
-        noofDaysTxt = new javax.swing.JSpinner();
-        jButton1 = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        DateChooser = new com.toedter.calendar.JDateChooser();
+        jkLabel1 = new javax.swing.JLabel();
+        jkLabel2 = new javax.swing.JLabel();
+        jtxtName = new javax.swing.JTextField();
+        jkLabel3 = new javax.swing.JLabel();
+        jtxtAge = new javax.swing.JTextField();
+        jkLabel4 = new javax.swing.JLabel();
+        jtxtGender = new javax.swing.JTextField();
+        jkLabel5 = new javax.swing.JLabel();
+        jcbMedicine = new javax.swing.JComboBox<>();
+        jkLabel6 = new javax.swing.JLabel();
+        jnoofTimesTxt = new javax.swing.JSpinner();
+        jkLabel7 = new javax.swing.JLabel();
+        jnoofDaysTxt = new javax.swing.JSpinner();
+        jkButton1 = new javax.swing.JButton();
+        jkLabel8 = new javax.swing.JLabel();
+        jDateChooser = new com.toedter.calendar.JDateChooser();
         jScrollPane1 = new javax.swing.JScrollPane();
-        prescriptionJTable = new javax.swing.JTable();
-        btnBack = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        prescriJTable = new javax.swing.JTable();
+        jbtnBack = new javax.swing.JButton();
+        jkButton2 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
-        jLabel1.setText("DOCTOR PRESCRIPTION");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(212, 17, 312, 40));
+        jkLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
+        jkLabel1.setText("DOCTOR PRESCRIPTION");
+        add(jkLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(212, 17, 312, 40));
 
-        jLabel2.setText("Name :");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(228, 90, -1, -1));
+        jkLabel2.setText("Name :");
+        add(jkLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(228, 90, -1, -1));
 
-        txtName.setEditable(false);
-        add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 85, 167, -1));
+        jtxtName.setEditable(false);
+        add(jtxtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 85, 167, -1));
 
-        jLabel3.setText("Age:");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(244, 146, -1, -1));
+        jkLabel3.setText("Age:");
+        add(jkLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(244, 146, -1, -1));
 
-        txtAge.setEditable(false);
-        add(txtAge, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 141, 167, -1));
+        jtxtAge.setEditable(false);
+        add(jtxtAge, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 141, 167, -1));
 
-        jLabel4.setText("Gender");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(228, 202, -1, -1));
+        jkLabel4.setText("Gender:");
+        add(jkLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(228, 202, -1, -1));
 
-        txtGender.setEditable(false);
-        add(txtGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 197, 167, -1));
+        jtxtGender.setEditable(false);
+        add(jtxtGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 197, 167, -1));
 
-        jLabel5.setText("Medicine:");
-        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(212, 257, -1, -1));
+        jkLabel5.setText("Medicine:");
+        add(jkLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(212, 257, -1, -1));
 
-        cbMedicine.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        add(cbMedicine, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 253, 167, -1));
+        jcbMedicine.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        add(jcbMedicine, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 253, 167, -1));
 
-        jLabel6.setText("Times a Day:");
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(191, 315, -1, -1));
-        add(noofTimesTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 310, 167, -1));
+        jkLabel6.setText("Times a Day:");
+        add(jkLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(191, 315, -1, -1));
+        add(jnoofTimesTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 310, 167, -1));
 
-        jLabel7.setText("For:");
-        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(248, 371, -1, -1));
-        add(noofDaysTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 366, 167, -1));
+        jkLabel7.setText("For:");
+        add(jkLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(248, 371, -1, -1));
+        add(jnoofDaysTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 366, 167, -1));
 
-        jButton1.setText("Add to Prescription");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jkButton1.setText("Add to Prescription");
+        jkButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jkButton1ActionPerformed(evt);
             }
         });
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 460, 267, -1));
+        add(jkButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 460, 267, -1));
 
-        jLabel8.setText("Date: ");
-        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(235, 422, -1, -1));
-        add(DateChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 422, 167, -1));
+        jkLabel8.setText("Date: ");
+        add(jkLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(235, 422, -1, -1));
+        add(jDateChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 422, 167, -1));
 
-        prescriptionJTable.setModel(new javax.swing.table.DefaultTableModel(
+        prescriJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -204,43 +202,43 @@ public class PrescriptionJPanel extends javax.swing.JPanel {
                 "Medicine", "No of Times", "Days"
             }
         ));
-        jScrollPane1.setViewportView(prescriptionJTable);
+        jScrollPane1.setViewportView(prescriJTable);
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(117, 557, 560, 139));
 
-        btnBack.setText("<<Back");
-        btnBack.addActionListener(new java.awt.event.ActionListener() {
+        jbtnBack.setText("<<Back");
+        jbtnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBackActionPerformed(evt);
+                jbtnBackActionPerformed(evt);
             }
         });
-        add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 510, 190, -1));
+        add(jbtnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 510, 190, -1));
 
-        jButton2.setText("Send Prescription To Customer");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jkButton2.setText("Send Prescription To Customer");
+        jkButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jkButton2ActionPerformed(evt);
             }
         });
-        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 510, 230, -1));
+        add(jkButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 510, 230, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+    private void jbtnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBackActionPerformed
         // TODO add your handling code here:
          userProcessContainer.remove(this);
         log.debug("going back to Doctors work area");
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
-    }//GEN-LAST:event_btnBackActionPerformed
+    }//GEN-LAST:event_jbtnBackActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jkButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jkButton1ActionPerformed
         // TODO add your handling code here:
-         Prescription p = new Prescription();
+         PrescriptionService p = new PrescriptionService();
        // p.setDaignosis(diagnosisComboBox.getSelectedItem().toString());
-        p.setMedicineName(cbMedicine.getSelectedItem().toString());
-        p.setNoofTimesInaday((Integer) noofTimesTxt.getValue());
-        p.setTotalDays((Integer) noofDaysTxt.getValue());
-        p.setNetworkName(network.getName());
+        p.setMedName(jcbMedicine.getSelectedItem().toString());
+        p.setNumberOfTimesInaday((Integer) jnoofTimesTxt.getValue());
+        p.setTotallDays((Integer) jnoofDaysTxt.getValue());
+        p.setNetworkkName(network.getNetName());
         
         
         
@@ -265,20 +263,20 @@ public class PrescriptionJPanel extends javax.swing.JPanel {
 //            return;
 //
 //        }
-         if(((Integer) noofTimesTxt.getValue())==0|| ((Integer) noofDaysTxt.getValue())==0)
+         if(((Integer) jnoofTimesTxt.getValue())==0|| ((Integer) jnoofDaysTxt.getValue())==0)
                 {
                      JOptionPane.showMessageDialog(null, "Please enter the no of days or no times !");
              flag = false;
              return;
                 }
-         if(DateChooser.getDate()==null)
+         if(jDateChooser.getDate()==null)
          {
              JOptionPane.showMessageDialog(null, "Please select the date !");
              flag = false;
              return;
          }
-         System.out.println("cbMedicine.getSelectedIndex() "+  cbMedicine.getSelectedIndex());
-         if(cbMedicine.getSelectedIndex()<=0)
+         System.out.println("cbMedicine.getSelectedIndex() "+  jcbMedicine.getSelectedIndex());
+         if(jcbMedicine.getSelectedIndex()<=0)
          {
              JOptionPane.showMessageDialog(null, "Please select the Medication Name !");
              flag = false;
@@ -294,7 +292,7 @@ public class PrescriptionJPanel extends javax.swing.JPanel {
         if (flag == true) {
             
             
-            patient.getPrescriptionlist().addPrescription(p);
+            patient.getPrescriptionList().addPrescriiption(p);
 
 //            PharmacyWorkRequest request = new PharmacyWorkRequest();
 //
@@ -303,20 +301,20 @@ public class PrescriptionJPanel extends javax.swing.JPanel {
 //            request.setSender(userAccount);
 //            request.setStatus("Sent");
 //            System.out.println(request.getMedicationName());
-//            JOptionPane.showMessageDialog(null, "Prescription added successfully");
+//            JOptionPane.showMessageDialog(null, "PrescriptionService added successfully");
 //
 //            System.out.println("****" + enterprise.getName());
-//            Organization org = null;
+//            OrganizationService org = null;
 //
-//                for (Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList()) {
-//                    for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+//                for (Venture enterprise : network.getEnterpriseDirectory().getEnterpriseList()) {
+//                    for (OrganizationService organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
 //                        if (organization instanceof PharmacyOrganization) {
 //                            org = organization;
 //                            System.out.println("****" + org);
 //                            log.debug(org);
-//                            log.debug("Current Enterprise\t" +enterprise);
-//                               log.debug("Current Organization\t" +org);
-//                               log.debug("Current Network\t" +network);
+//                            log.debug("Current Venture\t" +enterprise);
+//                               log.debug("Current OrganizationService\t" +org);
+//                               log.debug("Current NetworkService\t" +network);
 //                            break;
 //                        }
 //                    }
@@ -332,52 +330,52 @@ public class PrescriptionJPanel extends javax.swing.JPanel {
            
 
             populateWorkRequestTable();
-            saveRecord(p.getNetworkName(),p.getDaignosis(),p.getMedicineName(),p.getNoofTimesInaday(),p.getTotalDays());
+            saveRecord(p.getNetworkkName(),p.getDaignosiss(),p.getMedName(),p.getNumberOfTimesInaday(),p.getTotallDays());
            // txtName.setText("");
            // ageTxtField.setText("");
-             noofTimesTxt.setValue(0);
-             noofDaysTxt.setValue(0);
+             jnoofTimesTxt.setValue(0);
+             jnoofDaysTxt.setValue(0);
            //  sexcomboBox.setSelectedIndex(0);
-             cbMedicine.setSelectedIndex(0);
+             jcbMedicine.setSelectedIndex(0);
             
         }
 
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jkButton1ActionPerformed
 
     public void populateWorkRequestTable() {
 
-        DefaultTableModel model = (DefaultTableModel) prescriptionJTable.getModel();
+        DefaultTableModel model = (DefaultTableModel) prescriJTable.getModel();
 
         model.setRowCount(0);
 
-        for (Prescription prescription : patient.getPrescriptionlist().getPrescriptionList()) {
+        for (PrescriptionService prescription : patient.getPrescriptionList().getPrescriiptionList()) {
            
                 Object[] row = new Object[5];
-                row[0] = prescription.getMedicineName();
-                row[1] = prescription.getNoofTimesInaday();
-                row[2] = prescription.getTotalDays();         
+                row[0] = prescription.getMedName();
+                row[1] = prescription.getNumberOfTimesInaday();
+                row[2] = prescription.getTotallDays();         
                 model.addRow(row);
         }
 
     }
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jkButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jkButton2ActionPerformed
         // TODO add your handling code here:
         
         log.info("Prescritopn Send to Customer");
         String prescrip ="";
-        for (Prescription prescription : patient.getPrescriptionlist().getPrescriptionList()) {
+        for (PrescriptionService prescription : patient.getPrescriptionList().getPrescriiptionList()) {
            
                
-               prescrip += "Medicine Name : "+prescription.getMedicineName();
-               prescrip += ", No of times a Day : " + prescription.getNoofTimesInaday();
-              prescrip  += ", No of Days" + prescription.getTotalDays();         
+               prescrip += "Medicine Name : "+prescription.getMedName();
+               prescrip += ", No of times a Day : " + prescription.getNumberOfTimesInaday();
+              prescrip  += ", No of Days" + prescription.getTotallDays();         
             
         }
         
-        SendEmail(patient.getEmailAddress(),prescrip);
+        SendEmail(patient.getEmailAdd(),prescrip);
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jkButton2ActionPerformed
 
     public void saveRecord(String network,String disease,String medicine,int times, int days){
         try {
@@ -458,25 +456,25 @@ public class PrescriptionJPanel extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JDateChooser DateChooser;
-    private javax.swing.JButton btnBack;
-    private javax.swing.JComboBox<String> cbMedicine;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
+    private com.toedter.calendar.JDateChooser jDateChooser;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSpinner noofDaysTxt;
-    private javax.swing.JSpinner noofTimesTxt;
-    private javax.swing.JTable prescriptionJTable;
-    private javax.swing.JTextField txtAge;
-    private javax.swing.JTextField txtGender;
-    private javax.swing.JTextField txtName;
+    private javax.swing.JButton jbtnBack;
+    private javax.swing.JComboBox<String> jcbMedicine;
+    private javax.swing.JButton jkButton1;
+    private javax.swing.JButton jkButton2;
+    private javax.swing.JLabel jkLabel1;
+    private javax.swing.JLabel jkLabel2;
+    private javax.swing.JLabel jkLabel3;
+    private javax.swing.JLabel jkLabel4;
+    private javax.swing.JLabel jkLabel5;
+    private javax.swing.JLabel jkLabel6;
+    private javax.swing.JLabel jkLabel7;
+    private javax.swing.JLabel jkLabel8;
+    private javax.swing.JSpinner jnoofDaysTxt;
+    private javax.swing.JSpinner jnoofTimesTxt;
+    private javax.swing.JTextField jtxtAge;
+    private javax.swing.JTextField jtxtGender;
+    private javax.swing.JTextField jtxtName;
+    private javax.swing.JTable prescriJTable;
     // End of variables declaration//GEN-END:variables
 }
