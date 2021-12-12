@@ -5,19 +5,19 @@
  */
 package userinterface.DoctorWorkArea;
 
-import Business.EcoSystem;
-import Business.Employee.Employee;
-import Business.Enterprise.Enterprise;
-import Business.MedicalEmployment.Doctor;
-import Business.MedicalEmployment.Patient;
-import Business.Network.Network;
+import Project.EcoSystem;
+import Project.Employee.Employee;
+import Project.Venture.Venture;
+import Project.MedicalEmployment.DoctorService;
+import Project.MedicalEmployment.PatientDetails;
+import Project.Network.NetworkService;
 //import Business.Mail.Mail;
-import Business.Organization.LabOrganization;
-import Business.Organization.Organization;
-import Business.UserAccount.UserAccount;
-import Business.WorkQueue.LabTestWorkRequest;
-import Business.WorkQueue.LabWorkRequest;
-import Business.WorkQueue.WorkRequest;
+import Project.Organization.LabOrganizationService;
+import Project.Organization.OrganizationService;
+import Project.UserAccount.UserAccountService;
+import Project.WorkQueue.LabTestWorkRequestService;
+import Project.WorkQueue.LabWorkRequestService;
+import Project.WorkQueue.WorkRequestService;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.Date;
@@ -32,7 +32,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Sandeep
+ * @author Dell
  */
 public class RequestLabTestJPanel extends javax.swing.JPanel {
 
@@ -41,16 +41,16 @@ public class RequestLabTestJPanel extends javax.swing.JPanel {
      */
     
     private JPanel userProcessContainer;
-    private Enterprise enterprise;
-    private UserAccount userAccount;
-    private Patient patient;
+    private Venture enterprise;
+    private UserAccountService userAccount;
+    private PatientDetails patient;
     private EcoSystem ecosystem;
-    Organization organization;
-    Doctor doctor;
-    Network network;
+    OrganizationService organization;
+    DoctorService doctor;
+    NetworkService network;
     
-    public RequestLabTestJPanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise, Patient patient,
-            Doctor doctor, Organization organization,Network network, EcoSystem business) {
+    public RequestLabTestJPanel(JPanel userProcessContainer, UserAccountService account, Venture enterprise, PatientDetails patient,
+            DoctorService doctor, OrganizationService organization,NetworkService network, EcoSystem business) {
         initComponents();
          this.ecosystem = business;
         this.userProcessContainer = userProcessContainer;
@@ -64,42 +64,42 @@ public class RequestLabTestJPanel extends javax.swing.JPanel {
         populateTable();
 
         //valueLabel.setText(enterprise.getName());
-        lblDocName.setText(doctor.getDocName());
-        lblPatientName.setText( patient.getPatientName());
+        jlblDocName.setText(doctor.getDoctorName());
+        jlblPatientName.setText( patient.getPatName());
     }
     
      public void populateTable()
     {
         
-         DefaultTableModel model = (DefaultTableModel) tblLabRequest.getModel();
+         DefaultTableModel model = (DefaultTableModel) jtblLabRequest.getModel();
         model.setRowCount(0);
         
-         Organization org = null;
-       for(Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList())  
+         OrganizationService org = null;
+       for(Venture enterprise : network.getVentureDirectory().getVentureList())  
        {
-            for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
-                if (organization instanceof LabOrganization) {
-                    System.out.println(organization.getType());
+            for (OrganizationService organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                if (organization instanceof LabOrganizationService) {
+                    System.out.println(organization.getTypee());
                     org = organization;
                     break;
                 }
             }
        }
         if (org != null) {
-            for(WorkRequest wr : org.getWorkQueue().getWorkRequestList())
+            for(WorkRequestService wr : org.getWorkkQueue().getWorkRequestList())
             {
-                if(wr instanceof LabWorkRequest)
+                if(wr instanceof LabWorkRequestService)
                 {
-                    LabWorkRequest lwr = (LabWorkRequest)wr;
-                    if(lwr.getPatient().equals(patient))
+                    LabWorkRequestService lwr = (LabWorkRequestService)wr;
+                    if(lwr.getPati().equals(patient))
                     {
                         Object[] row = new Object[6];
-                        row[0] = lwr.getLabTestRequestId();
-                        row[1] = lwr.getPatient().getPatientName();
-                        row[2] = lwr.getSpecimenType();               
-                        row[3] = lwr.getLabTestName();
-                        row[4] = lwr.getLabTestAdminFeedback();
-                        row[5] = lwr.getRequestdate();
+                        row[0] = lwr.getLabTestReqId();
+                        row[1] = lwr.getPati().getPatName();
+                        row[2] = lwr.getSpeciType();               
+                        row[3] = lwr.getLabTesttName();
+                        row[4] = lwr.getLabTestAdmFeedbck();
+                        row[5] = lwr.getReqdate();
 
                         model.addRow(row);
                     }
@@ -121,26 +121,26 @@ public class RequestLabTestJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblLabRequest = new javax.swing.JTable();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        lblPatientName = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        lblDocName = new javax.swing.JLabel();
+        jtblLabRequest = new javax.swing.JTable();
+        jkLabel6 = new javax.swing.JLabel();
+        jkLabel1 = new javax.swing.JLabel();
+        jlblPatientName = new javax.swing.JLabel();
+        jkLabel2 = new javax.swing.JLabel();
+        jlblDocName = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtSpecimenType = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        txtLabTestName = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        txtMessage = new javax.swing.JTextField();
-        requestTestJButton = new javax.swing.JButton();
-        backJButton = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
+        txtSpeciType = new javax.swing.JTextField();
+        jkLabel5 = new javax.swing.JLabel();
+        jtxtLabTestName = new javax.swing.JTextField();
+        jkLabel4 = new javax.swing.JLabel();
+        jtxtMessage = new javax.swing.JTextField();
+        reqTestJButton = new javax.swing.JButton();
+        jbackJButton = new javax.swing.JButton();
+        jkLabel7 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tblLabRequest.setModel(new javax.swing.table.DefaultTableModel(
+        jtblLabRequest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -151,95 +151,95 @@ public class RequestLabTestJPanel extends javax.swing.JPanel {
                 "Request ID", "Patient", "Specimen Type", "Lab Test  Name", "Lab Test Feedback", "Request Date"
             }
         ));
-        jScrollPane1.setViewportView(tblLabRequest);
+        jScrollPane1.setViewportView(jtblLabRequest);
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 88, 663, 129));
 
-        jLabel6.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("LAB TEST REQUEST PAGE");
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, -1, 28));
+        jkLabel6.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
+        jkLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jkLabel6.setText("LAB TEST REQUEST PAGE");
+        add(jkLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, -1, 28));
 
-        jLabel1.setText("Patient Name:");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 247, -1, -1));
+        jkLabel1.setText("Patient Name:");
+        add(jkLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 247, -1, -1));
 
-        lblPatientName.setText("<Name>");
-        add(lblPatientName, new org.netbeans.lib.awtextra.AbsoluteConstraints(177, 247, 135, -1));
+        jlblPatientName.setText("<Name>");
+        add(jlblPatientName, new org.netbeans.lib.awtextra.AbsoluteConstraints(177, 247, 135, -1));
 
-        jLabel2.setText("Doctor Name: ");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(343, 247, -1, -1));
+        jkLabel2.setText("Doctor Name: ");
+        add(jkLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(343, 247, -1, -1));
 
-        lblDocName.setText("<Name>");
-        add(lblDocName, new org.netbeans.lib.awtextra.AbsoluteConstraints(454, 247, 135, -1));
+        jlblDocName.setText("<Name>");
+        add(jlblDocName, new org.netbeans.lib.awtextra.AbsoluteConstraints(454, 247, 135, -1));
 
         jLabel3.setText("Specimen Type :");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(177, 296, -1, -1));
-        add(txtSpecimenType, new org.netbeans.lib.awtextra.AbsoluteConstraints(309, 291, 189, -1));
+        add(txtSpeciType, new org.netbeans.lib.awtextra.AbsoluteConstraints(309, 291, 189, -1));
 
-        jLabel5.setText("Lab Test Name :");
-        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(177, 352, -1, -1));
-        add(txtLabTestName, new org.netbeans.lib.awtextra.AbsoluteConstraints(308, 347, 189, -1));
+        jkLabel5.setText("Lab Test Name :");
+        add(jkLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(177, 352, -1, -1));
+        add(jtxtLabTestName, new org.netbeans.lib.awtextra.AbsoluteConstraints(308, 347, 189, -1));
 
-        jLabel4.setText("Message :");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(216, 408, -1, -1));
-        add(txtMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(308, 403, 189, -1));
+        jkLabel4.setText("Message :");
+        add(jkLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(216, 408, -1, -1));
+        add(jtxtMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(308, 403, 189, -1));
 
-        requestTestJButton.setText("Request Test");
-        requestTestJButton.addActionListener(new java.awt.event.ActionListener() {
+        reqTestJButton.setText("Request Test");
+        reqTestJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                requestTestJButtonActionPerformed(evt);
+                reqTestJButtonActionPerformed(evt);
             }
         });
-        add(requestTestJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(308, 459, 175, -1));
+        add(reqTestJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(308, 459, 175, -1));
 
-        backJButton.setText("<<Back");
-        backJButton.addActionListener(new java.awt.event.ActionListener() {
+        jbackJButton.setText("<<Back");
+        jbackJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backJButtonActionPerformed(evt);
+                jbackJButtonActionPerformed(evt);
             }
         });
-        add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 459, -1, -1));
+        add(jbackJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 459, -1, -1));
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/labadmin.jpg"))); // NOI18N
-        jLabel7.setText("jLabel7");
-        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 600));
+        jkLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/labadmin.jpg"))); // NOI18N
+        jkLabel7.setText("jLabel7");
+        add(jkLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 600));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void requestTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestTestJButtonActionPerformed
+    private void reqTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reqTestJButtonActionPerformed
 
-        String message = txtMessage.getText();
-        String labTestName = txtLabTestName.getText();
-        String labSpecimen = txtSpecimenType.getText();
+        String message = jtxtMessage.getText();
+        String labTestName = jtxtLabTestName.getText();
+        String labSpecimen = txtSpeciType.getText();
         // String message = messageJTextField.getText();
 //        if (message.equals("") || message.isEmpty() || !message.matches("[a-zA-Z]+")) {
 //            JOptionPane.showMessageDialog(null, "Please enter something to send.");
 //            return;
 //        }
 
-        LabWorkRequest request = new LabWorkRequest();
-        request.setMessage(message);
-        request.setSender(userAccount);
-        request.setLabTestName(labTestName);
-        request.setSpecimenType(labSpecimen);
-        request.setStatus("Requested");
-        request.setPatient(patient);
-        request.setDoctor(doctor);
-        request.setRequestdate(new Date());
-        System.out.println(patient.getPatientName());
+        LabWorkRequestService request = new LabWorkRequestService();
+        request.setMes(message);
+        request.setSendr(userAccount);
+        request.setLabTesttName(labTestName);
+        request.setSpeciType(labSpecimen);
+        request.setStat("Requested");
+        request.setPati(patient);
+        request.setDoc(doctor);
+        request.setReqdate(new Date());
+        System.out.println(patient.getPatName());
         //   patient.getPdr().addRequest(request);
 
-        Organization org = null;
-       for(Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList())  
+        OrganizationService org = null;
+       for(Venture enterprise : network.getVentureDirectory().getVentureList())  
        {
-            for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
-                if (organization instanceof LabOrganization) {
+            for (OrganizationService organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                if (organization instanceof LabOrganizationService) {
                     org = organization;
                     break;
                 }
             }
        }
         if (org != null) {
-            org.getWorkQueue().getWorkRequestList().add(request);
+            org.getWorkkQueue().getWorkRequestList().add(request);
             //userAccount.getWorkQueue().getWorkRequestList().add(request);
         }
         JOptionPane.showMessageDialog(null, "Request message sent");
@@ -259,9 +259,9 @@ public class RequestLabTestJPanel extends javax.swing.JPanel {
             //            Logger.getLogger(DoctorWorkAreaJPanel2.class.getName()).log(Level.SEVERE, null, ex);
             //        }
         //        JOptionPane.showMessageDialog(this, "Email Sent!");
-    }//GEN-LAST:event_requestTestJButtonActionPerformed
+    }//GEN-LAST:event_reqTestJButtonActionPerformed
 
-    private void backJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backJButtonActionPerformed
+    private void jbackJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbackJButtonActionPerformed
 
         //        userProcessContainer.remove(this);
         //        Component[] componentArray = userProcessContainer.getComponents();
@@ -279,25 +279,25 @@ public class RequestLabTestJPanel extends javax.swing.JPanel {
         dwjp.populateTable();
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
-    }//GEN-LAST:event_backJButtonActionPerformed
+    }//GEN-LAST:event_jbackJButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton backJButton;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblDocName;
-    private javax.swing.JLabel lblPatientName;
-    private javax.swing.JButton requestTestJButton;
-    private javax.swing.JTable tblLabRequest;
-    private javax.swing.JTextField txtLabTestName;
-    private javax.swing.JTextField txtMessage;
-    private javax.swing.JTextField txtSpecimenType;
+    private javax.swing.JButton jbackJButton;
+    private javax.swing.JLabel jkLabel1;
+    private javax.swing.JLabel jkLabel2;
+    private javax.swing.JLabel jkLabel4;
+    private javax.swing.JLabel jkLabel5;
+    private javax.swing.JLabel jkLabel6;
+    private javax.swing.JLabel jkLabel7;
+    private javax.swing.JLabel jlblDocName;
+    private javax.swing.JLabel jlblPatientName;
+    private javax.swing.JTable jtblLabRequest;
+    private javax.swing.JTextField jtxtLabTestName;
+    private javax.swing.JTextField jtxtMessage;
+    private javax.swing.JButton reqTestJButton;
+    private javax.swing.JTextField txtSpeciType;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,16 +5,16 @@
  */
 package userinterface.DoctorWorkArea;
 
-import Business.EcoSystem;
-import Business.Enterprise.Enterprise;
-import Business.MedicalEmployment.Doctor;
-import Business.MedicalEmployment.Patient;
-import Business.Network.Network;
-import Business.Organization.DoctorOrganization;
-import Business.Organization.Organization;
-import Business.UserAccount.UserAccount;
-import Business.WorkQueue.DoctorCheckUpWorkRequest;
-import Business.WorkQueue.WorkRequest;
+import Project.EcoSystem;
+import Project.Venture.Venture;
+import Project.MedicalEmployment.DoctorService;
+import Project.MedicalEmployment.PatientDetails;
+import Project.Network.NetworkService;
+import Project.Organization.DoctorOrganizationService;
+import Project.Organization.OrganizationService;
+import Project.UserAccount.UserAccountService;
+import Project.WorkQueue.DoctorCheckUpWorkRequestService;
+import Project.WorkQueue.WorkRequestService;
 import java.awt.CardLayout;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -23,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Sandeep
+ * @author Dell
  */
 public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
 
@@ -31,15 +31,15 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
      * Creates new form DoctorWorkAreaJPanel
      */
      JPanel userProcessContainer;
-    UserAccount account;
-    Organization organization;
-    Enterprise enterprise;
-    Network network;
+    UserAccountService account;
+    OrganizationService organization;
+    Venture enterprise;
+    NetworkService network;
     EcoSystem business;
         String value = "\\d+";
    
     public DoctorWorkAreaJPanel(JPanel userProcessContainer, 
-            UserAccount account,Organization organization,Enterprise enterprise,Network network,
+            UserAccountService account,OrganizationService organization,Venture enterprise,NetworkService network,
             EcoSystem business) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
@@ -53,20 +53,20 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
 
     public void populateTable()
     {
-        DefaultTableModel model = (DefaultTableModel) tblDocReq.getModel();
+        DefaultTableModel model = (DefaultTableModel) tblDocRequest.getModel();
         model.setRowCount(0);
-        System.out.println("Total workreq "+account.getWorkQueue().getWorkRequestList().size());
+        System.out.println("Total workreq "+account.getWorkkQueue().getWorkRequestList().size());
         
-        for (WorkRequest wr : account.getWorkQueue().getWorkRequestList()) {
-            if(wr instanceof DoctorCheckUpWorkRequest) {
+        for (WorkRequestService wr : account.getWorkkQueue().getWorkRequestList()) {
+            if(wr instanceof DoctorCheckUpWorkRequestService) {
                 
-                DoctorCheckUpWorkRequest epr = (DoctorCheckUpWorkRequest)wr;
+                DoctorCheckUpWorkRequestService epr = (DoctorCheckUpWorkRequestService)wr;
                 
                 Object[] row = new Object[4];
                 row[0] = epr;
-                row[1] = epr.getPatient().getPatientName();
-                row[2] = epr.getStatus();               
-                row[3] = epr.getMessage();
+                row[1] = epr.getPat().getPatName();
+                row[2] = epr.getStat();               
+                row[3] = epr.getMes();
              
                 model.addRow(row);
             }
@@ -84,26 +84,26 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblDocReq = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        txtrespiratoryrate = new javax.swing.JTextField();
-        txtbloodpressure = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        txtweight = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        txtheartrate = new javax.swing.JTextField();
-        btnrequest = new javax.swing.JButton();
+        tblDocRequest = new javax.swing.JTable();
+        jkLabel1 = new javax.swing.JLabel();
+        jkLabel2 = new javax.swing.JLabel();
+        txtrespirate = new javax.swing.JTextField();
+        txtbloodpress = new javax.swing.JTextField();
+        jkLabel3 = new javax.swing.JLabel();
+        txtwt = new javax.swing.JTextField();
+        jkLabel4 = new javax.swing.JLabel();
+        txthrtrate = new javax.swing.JTextField();
+        btnreq = new javax.swing.JButton();
         btnsubmit = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
+        jkButton3 = new javax.swing.JButton();
+        jkButton1 = new javax.swing.JButton();
+        jkLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tblDocReq.setModel(new javax.swing.table.DefaultTableModel(
+        tblDocRequest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -114,39 +114,39 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
                 "Request ID", "Patient", "Status", "Message"
             }
         ));
-        jScrollPane1.setViewportView(tblDocReq);
+        jScrollPane1.setViewportView(tblDocRequest);
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 117, 642, 121));
 
-        jLabel1.setText("Respiratory Rate :");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(116, 273, -1, -1));
+        jkLabel1.setText("Respiratory Rate :");
+        add(jkLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(116, 273, -1, -1));
 
-        jLabel2.setText("Blood Pressure :");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 317, -1, -1));
-        add(txtrespiratoryrate, new org.netbeans.lib.awtextra.AbsoluteConstraints(244, 268, 128, -1));
-        add(txtbloodpressure, new org.netbeans.lib.awtextra.AbsoluteConstraints(244, 312, 128, -1));
+        jkLabel2.setText("Blood Pressure :");
+        add(jkLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 317, -1, -1));
+        add(txtrespirate, new org.netbeans.lib.awtextra.AbsoluteConstraints(244, 268, 128, -1));
+        add(txtbloodpress, new org.netbeans.lib.awtextra.AbsoluteConstraints(244, 312, 128, -1));
 
-        jLabel3.setText("Weight :");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(444, 273, -1, -1));
-        add(txtweight, new org.netbeans.lib.awtextra.AbsoluteConstraints(513, 268, 128, -1));
+        jkLabel3.setText("Weight :");
+        add(jkLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(444, 273, -1, -1));
+        add(txtwt, new org.netbeans.lib.awtextra.AbsoluteConstraints(513, 268, 128, -1));
 
-        jLabel4.setText("Heart Rate :");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(422, 317, -1, -1));
+        jkLabel4.setText("Heart Rate :");
+        add(jkLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(422, 317, -1, -1));
 
-        txtheartrate.addActionListener(new java.awt.event.ActionListener() {
+        txthrtrate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtheartrateActionPerformed(evt);
+                txthrtrateActionPerformed(evt);
             }
         });
-        add(txtheartrate, new org.netbeans.lib.awtextra.AbsoluteConstraints(513, 312, 128, -1));
+        add(txthrtrate, new org.netbeans.lib.awtextra.AbsoluteConstraints(513, 312, 128, -1));
 
-        btnrequest.setText("Request for Lab Test");
-        btnrequest.addActionListener(new java.awt.event.ActionListener() {
+        btnreq.setText("Request for Lab Test");
+        btnreq.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnrequestActionPerformed(evt);
+                btnreqActionPerformed(evt);
             }
         });
-        add(btnrequest, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 385, -1, -1));
+        add(btnreq, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 385, -1, -1));
 
         btnsubmit.setText("Submit Vital Info");
         btnsubmit.addActionListener(new java.awt.event.ActionListener() {
@@ -156,39 +156,39 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
         });
         add(btnsubmit, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 385, 173, -1));
 
-        jButton3.setText("Refresh");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jkButton3.setText("Refresh");
+        jkButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jkButton3ActionPerformed(evt);
             }
         });
-        add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(599, 76, 96, -1));
+        add(jkButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(599, 76, 96, -1));
 
-        jButton1.setText("Write Prescription ");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jkButton1.setText("Write Prescription ");
+        jkButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jkButton1ActionPerformed(evt);
             }
         });
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(513, 385, 173, -1));
+        add(jkButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(513, 385, 173, -1));
 
-        jLabel5.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("DOCTOR WORK AREA");
-        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(205, 22, 292, 36));
+        jkLabel5.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
+        jkLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jkLabel5.setText("DOCTOR WORK AREA");
+        add(jkLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(205, 22, 292, 36));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/doctor2.jpg"))); // NOI18N
         add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(-5, -4, 810, 490));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jkButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jkButton3ActionPerformed
         // TODO add your handling code here:
         populateTable();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jkButton3ActionPerformed
 
     private void btnsubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsubmitActionPerformed
         // TODO add your handling code here:
-         int selectedRow = tblDocReq.getSelectedRow();
+         int selectedRow = tblDocRequest.getSelectedRow();
         if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Please select a row");
             return;
@@ -199,42 +199,42 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
 //            return;
 //        }
 
-        if (txtrespiratoryrate.getText().trim().isEmpty()) {
+        if (txtrespirate.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Enter an appropriate Respiratory Rate");
             return;
-        } else if (!txtrespiratoryrate.getText().matches(value)) {
+        } else if (!txtrespirate.getText().matches(value)) {
             JOptionPane.showMessageDialog(null, "Enter an appropriate Respiratory Rate");
             return;
         }
-        if (txtbloodpressure.getText().trim().isEmpty()) {
+        if (txtbloodpress.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Enter an appropriate Blood Pressure");
             return;
-        } else if (!txtbloodpressure.getText().matches(value)) {
+        } else if (!txtbloodpress.getText().matches(value)) {
             JOptionPane.showMessageDialog(null, "Enter an appropriate Blood Pressure");
             return;
         }
-        if (txtheartrate.getText().trim().isEmpty()) {
+        if (txthrtrate.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Enter an appropriate Heart Rate");
             return;
-        } else if (!txtheartrate.getText().matches(value)) {
+        } else if (!txthrtrate.getText().matches(value)) {
             JOptionPane.showMessageDialog(null, "Enter an appropriate Heart Rate");
             return;
         }
-        if (txtweight.getText().trim().isEmpty()) {
+        if (txtwt.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Enter an appropriate Weight");
             return;
-        } else if (!txtweight.getText().matches(value)) {
+        } else if (!txtwt.getText().matches(value)) {
             JOptionPane.showMessageDialog(null, "Enter an appropriate Weight");
             return;
         }
           
        // String result=txtTestResult.getText();
        //  JOptionPane.showMessageDialog(null,"Donor details added1");
-        int rr = Integer.parseInt(txtrespiratoryrate.getText());
-        int bp = Integer.parseInt(txtbloodpressure.getText());
-        int weight = Integer.parseInt(txtweight.getText());
-        int hr = Integer.parseInt(txtheartrate.getText());
-        DoctorCheckUpWorkRequest cur = (DoctorCheckUpWorkRequest) tblDocReq.getValueAt(selectedRow, 0);
+        int rr = Integer.parseInt(txtrespirate.getText());
+        int bp = Integer.parseInt(txtbloodpress.getText());
+        int weight = Integer.parseInt(txtwt.getText());
+        int hr = Integer.parseInt(txthrtrate.getText());
+        DoctorCheckUpWorkRequestService cur = (DoctorCheckUpWorkRequestService) tblDocRequest.getValueAt(selectedRow, 0);
         //JOptionPane.showMessageDialog(null,"Donor details added1");
 //        if(rr.trim()==0 || bp.trim()==0)
 //        {
@@ -242,41 +242,41 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
 //                  return;
 //              }
         //  wr.setTestResult(result);
-        cur.getCheckUp().setRespiratoryRate(rr);
-        cur.getCheckUp().setBloodPressure(bp);
-        cur.getCheckUp().setHeartRate(hr);
-        cur.getCheckUp().setWeight(weight);
-        cur.getCheckUp().setDate(new Date());
-        cur.setResolveDate(new Date());
-        cur.setStatus("Completed"); //labtest
+        cur.getCheckkUp().setRespiratoryyRate(rr);
+        cur.getCheckkUp().setBlooddPressure(bp);
+        cur.getCheckkUp().setHeartRate(hr);
+        cur.getCheckkUp().setWeightt(weight);
+        cur.getCheckkUp().setDatee(new Date());
+        cur.setResolvDate(new Date());
+        cur.setStat("Completed"); //labtest
         //txtTestResult.setEnabled(true);
         // wr.setBarCode(barCode);
 
         //        wr.setBloodType(bloodType);
         //     wr.setBarCode(barCode);
         JOptionPane.showMessageDialog(null, "Check Up  completed");
-        btnrequest.setEnabled(true);
+        btnreq.setEnabled(true);
         btnsubmit.setEnabled(false);
         populateTable();
     }//GEN-LAST:event_btnsubmitActionPerformed
 
-    private void btnrequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrequestActionPerformed
+    private void btnreqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnreqActionPerformed
         // TODO add your handling code here:
         
-         int selectedRow = tblDocReq.getSelectedRow();
+         int selectedRow = tblDocRequest.getSelectedRow();
         if(selectedRow < 0) {
             JOptionPane.showMessageDialog(null,"Please Select a row from table first", "Warining", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        DoctorCheckUpWorkRequest dcwr = (DoctorCheckUpWorkRequest) tblDocReq.getValueAt(selectedRow, 0);
+        DoctorCheckUpWorkRequestService dcwr = (DoctorCheckUpWorkRequestService) tblDocRequest.getValueAt(selectedRow, 0);
         
-        Patient patient = dcwr.getPatient();
-        Doctor doctor = dcwr.getDoctor() ;
-//         for (WorkRequest wr : account.getWorkQueue().getWorkRequestList()) {
-//            if(wr instanceof DoctorCheckUpWorkRequest) {
+        PatientDetails patient = dcwr.getPat();
+        DoctorService doctor = dcwr.getDoc() ;
+//         for (WorkRequestService wr : account.getWorkQueue().getWorkRequestList()) {
+//            if(wr instanceof DoctorCheckUpWorkRequestService) {
 //                
-//                DoctorCheckUpWorkRequest epr = (DoctorCheckUpWorkRequest)wr;
+//                DoctorCheckUpWorkRequestService epr = (DoctorCheckUpWorkRequestService)wr;
 //                patient = epr.getPatient();
 //                doctor = epr.getDoctor();
 //            }
@@ -287,26 +287,26 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
         userProcessContainer.add("manageNetworkJPanel", manageNetworkJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
-    }//GEN-LAST:event_btnrequestActionPerformed
+    }//GEN-LAST:event_btnreqActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jkButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jkButton1ActionPerformed
         // TODO add your handling code here:
-         int selectedRow = tblDocReq.getSelectedRow();
+         int selectedRow = tblDocRequest.getSelectedRow();
         if(selectedRow < 0) {
             JOptionPane.showMessageDialog(null,"Please Select a row from table first", "Warining", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        DoctorCheckUpWorkRequest dcwr = (DoctorCheckUpWorkRequest) tblDocReq.getValueAt(selectedRow, 0);
+        DoctorCheckUpWorkRequestService dcwr = (DoctorCheckUpWorkRequestService) tblDocRequest.getValueAt(selectedRow, 0);
         
-        Patient patient = dcwr.getPatient();
-        Doctor doctor = dcwr.getDoctor() ;
-//         Patient patient = null;
-//        Doctor doctor = null ;
-//         for (WorkRequest wr : account.getWorkQueue().getWorkRequestList()) {
-//            if(wr instanceof DoctorCheckUpWorkRequest) {
+        PatientDetails patient = dcwr.getPat();
+        DoctorService doctor = dcwr.getDoc() ;
+//         PatientDetails patient = null;
+//        DoctorService doctor = null ;
+//         for (WorkRequestService wr : account.getWorkQueue().getWorkRequestList()) {
+//            if(wr instanceof DoctorCheckUpWorkRequestService) {
 //                
-//                DoctorCheckUpWorkRequest epr = (DoctorCheckUpWorkRequest)wr;
+//                DoctorCheckUpWorkRequestService epr = (DoctorCheckUpWorkRequestService)wr;
 //                patient = epr.getPatient();
 //                doctor = epr.getDoctor();
 //            }
@@ -318,29 +318,29 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
         userProcessContainer.add("manageNetworkJPanel", manageNetworkJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jkButton1ActionPerformed
 
-    private void txtheartrateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtheartrateActionPerformed
+    private void txthrtrateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txthrtrateActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtheartrateActionPerformed
+    }//GEN-LAST:event_txthrtrateActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnrequest;
+    private javax.swing.JButton btnreq;
     private javax.swing.JButton btnsubmit;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblDocReq;
-    private javax.swing.JTextField txtbloodpressure;
-    private javax.swing.JTextField txtheartrate;
-    private javax.swing.JTextField txtrespiratoryrate;
-    private javax.swing.JTextField txtweight;
+    private javax.swing.JButton jkButton1;
+    private javax.swing.JButton jkButton3;
+    private javax.swing.JLabel jkLabel1;
+    private javax.swing.JLabel jkLabel2;
+    private javax.swing.JLabel jkLabel3;
+    private javax.swing.JLabel jkLabel4;
+    private javax.swing.JLabel jkLabel5;
+    private javax.swing.JTable tblDocRequest;
+    private javax.swing.JTextField txtbloodpress;
+    private javax.swing.JTextField txthrtrate;
+    private javax.swing.JTextField txtrespirate;
+    private javax.swing.JTextField txtwt;
     // End of variables declaration//GEN-END:variables
 }
